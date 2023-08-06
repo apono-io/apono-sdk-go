@@ -233,6 +233,108 @@ func (a *AccessRequestsApiService) GetAccessRequestExecute(r ApiGetAccessRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAccessRequestDetailsRequest struct {
+	ctx        context.Context
+	ApiService *AccessRequestsApiService
+	id         string
+}
+
+func (r ApiGetAccessRequestDetailsRequest) Execute() (*ConnectDetailsResponse, *http.Response, error) {
+	return r.ApiService.GetAccessRequestDetailsExecute(r)
+}
+
+/*
+GetAccessRequestDetails get access request access details
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiGetAccessRequestDetailsRequest
+*/
+func (a *AccessRequestsApiService) GetAccessRequestDetails(ctx context.Context, id string) ApiGetAccessRequestDetailsRequest {
+	return ApiGetAccessRequestDetailsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ConnectDetailsResponse
+func (a *AccessRequestsApiService) GetAccessRequestDetailsExecute(r ApiGetAccessRequestDetailsRequest) (*ConnectDetailsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConnectDetailsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessRequestsApiService.GetAccessRequestDetails")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v3/access-requests/{id}/access-details"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSelectableIntegrationsRequest struct {
 	ctx        context.Context
 	ApiService *AccessRequestsApiService
@@ -344,6 +446,7 @@ type ApiGetSelectablePermissionsRequest struct {
 	ctx           context.Context
 	ApiService    *AccessRequestsApiService
 	integrationId string
+	resourceType  string
 	userId        *string
 }
 
@@ -361,13 +464,15 @@ GetSelectablePermissions get selectable permissions
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param integrationId
+	@param resourceType
 	@return ApiGetSelectablePermissionsRequest
 */
-func (a *AccessRequestsApiService) GetSelectablePermissions(ctx context.Context, integrationId string) ApiGetSelectablePermissionsRequest {
+func (a *AccessRequestsApiService) GetSelectablePermissions(ctx context.Context, integrationId string, resourceType string) ApiGetSelectablePermissionsRequest {
 	return ApiGetSelectablePermissionsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		integrationId: integrationId,
+		resourceType:  resourceType,
 	}
 }
 
@@ -387,7 +492,119 @@ func (a *AccessRequestsApiService) GetSelectablePermissionsExecute(r ApiGetSelec
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v3/selectable-integrations/{integration_id}/permissions"
+	localVarPath := localBasePath + "/api/v3/selectable-integrations/{integration_id}/{resource_type}/permissions"
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_id"+"}", url.PathEscape(parameterValueToString(r.integrationId, "integrationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"resource_type"+"}", url.PathEscape(parameterValueToString(r.resourceType, "resourceType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.userId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSelectableResourceTypesRequest struct {
+	ctx           context.Context
+	ApiService    *AccessRequestsApiService
+	integrationId string
+	userId        *string
+}
+
+func (r ApiGetSelectableResourceTypesRequest) UserId(userId string) ApiGetSelectableResourceTypesRequest {
+	r.userId = &userId
+	return r
+}
+
+func (r ApiGetSelectableResourceTypesRequest) Execute() (*PaginatedResponseSelectableResourceTypeV3, *http.Response, error) {
+	return r.ApiService.GetSelectableResourceTypesExecute(r)
+}
+
+/*
+GetSelectableResourceTypes get selectable resource types
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param integrationId
+	@return ApiGetSelectableResourceTypesRequest
+*/
+func (a *AccessRequestsApiService) GetSelectableResourceTypes(ctx context.Context, integrationId string) ApiGetSelectableResourceTypesRequest {
+	return ApiGetSelectableResourceTypesRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		integrationId: integrationId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PaginatedResponseSelectableResourceTypeV3
+func (a *AccessRequestsApiService) GetSelectableResourceTypesExecute(r ApiGetSelectableResourceTypesRequest) (*PaginatedResponseSelectableResourceTypeV3, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaginatedResponseSelectableResourceTypeV3
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessRequestsApiService.GetSelectableResourceTypes")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v3/selectable-integrations/{integration_id}/resource-types"
 	localVarPath = strings.Replace(localVarPath, "{"+"integration_id"+"}", url.PathEscape(parameterValueToString(r.integrationId, "integrationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -455,6 +672,7 @@ type ApiGetSelectableResourcesRequest struct {
 	ctx           context.Context
 	ApiService    *AccessRequestsApiService
 	integrationId string
+	resourceType  string
 	userId        *string
 }
 
@@ -472,13 +690,15 @@ GetSelectableResources get selectable resources
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param integrationId
+	@param resourceType
 	@return ApiGetSelectableResourcesRequest
 */
-func (a *AccessRequestsApiService) GetSelectableResources(ctx context.Context, integrationId string) ApiGetSelectableResourcesRequest {
+func (a *AccessRequestsApiService) GetSelectableResources(ctx context.Context, integrationId string, resourceType string) ApiGetSelectableResourcesRequest {
 	return ApiGetSelectableResourcesRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		integrationId: integrationId,
+		resourceType:  resourceType,
 	}
 }
 
@@ -498,8 +718,9 @@ func (a *AccessRequestsApiService) GetSelectableResourcesExecute(r ApiGetSelecta
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v3/selectable-integrations/{integration_id}/resources"
+	localVarPath := localBasePath + "/api/v3/selectable-integrations/{integration_id}/{resource_type}/resources"
 	localVarPath = strings.Replace(localVarPath, "{"+"integration_id"+"}", url.PathEscape(parameterValueToString(r.integrationId, "integrationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"resource_type"+"}", url.PathEscape(parameterValueToString(r.resourceType, "resourceType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -624,6 +845,108 @@ func (a *AccessRequestsApiService) ListAccessRequestsExecute(r ApiListAccessRequ
 	if r.userId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiResetAccessRequestCredentialsRequest struct {
+	ctx        context.Context
+	ApiService *AccessRequestsApiService
+	id         string
+}
+
+func (r ApiResetAccessRequestCredentialsRequest) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ResetAccessRequestCredentialsExecute(r)
+}
+
+/*
+ResetAccessRequestCredentials reset access request credentials
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiResetAccessRequestCredentialsRequest
+*/
+func (a *AccessRequestsApiService) ResetAccessRequestCredentials(ctx context.Context, id string) ApiResetAccessRequestCredentialsRequest {
+	return ApiResetAccessRequestCredentialsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MessageResponse
+func (a *AccessRequestsApiService) ResetAccessRequestCredentialsExecute(r ApiResetAccessRequestCredentialsRequest) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessRequestsApiService.ResetAccessRequestCredentials")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v3/access-requests/{id}/reset"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

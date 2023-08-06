@@ -23,6 +23,9 @@
       "name": "Access Requests"
     },
     {
+      "name": "Activity"
+    },
+    {
       "name": "Connectors"
     },
     {
@@ -396,7 +399,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaginatedAccessFlowSearchResponse"
+                  "$ref": "#/components/schemas/PaginatedAccessFlowV3SearchResponse"
                 }
               }
             }
@@ -413,7 +416,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateAccessFlowRequestV2"
+                "$ref": "#/components/schemas/CreateAccessFlowRequestV3"
               }
             }
           },
@@ -425,7 +428,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessFlowModelV2"
+                  "$ref": "#/components/schemas/AccessFlowModelV3"
                 }
               }
             }
@@ -456,7 +459,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessFlowModelV2"
+                  "$ref": "#/components/schemas/AccessFlowModelV3"
                 }
               }
             }
@@ -483,7 +486,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAccessFlowModelV2"
+                "$ref": "#/components/schemas/UpdateAccessFlowModelV3"
               }
             }
           },
@@ -495,7 +498,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessFlowModelV2"
+                  "$ref": "#/components/schemas/AccessFlowModelV3"
                 }
               }
             }
@@ -632,6 +635,186 @@
         }
       }
     },
+    "/api/v3/access-requests/{id}/access-details": {
+      "get": {
+        "tags": [
+          "Access Requests"
+        ],
+        "summary": "get access request access details",
+        "operationId": "getAccessRequestDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/access-requests/{id}/reset": {
+      "post": {
+        "tags": [
+          "Access Requests"
+        ],
+        "summary": "reset access request credentials",
+        "operationId": "resetAccessRequestCredentials",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/activity": {
+      "get": {
+        "tags": [
+          "Activity"
+        ],
+        "summary": "List Activity",
+        "operationId": "listActivity",
+        "parameters": [
+          {
+            "name": "end_date",
+            "in": "query",
+            "schema": {
+              "format": "int64",
+              "type": "integer",
+              "nullable": true
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ReportField"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[integration_id]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[permission]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[requestor_id]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[resource]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[resource_type]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[status]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/AccessStatus"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "schema": {
+              "format": "int64",
+              "type": "integer",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseActivityReportJsonExportModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v3/integrations/{id}/permissions": {
       "get": {
         "tags": [
@@ -725,13 +908,13 @@
         }
       }
     },
-    "/api/v3/selectable-integrations/{integration_id}/permissions": {
+    "/api/v3/selectable-integrations/{integration_id}/resource-types": {
       "get": {
         "tags": [
           "Access Requests"
         ],
-        "summary": "get selectable permissions",
-        "operationId": "getSelectablePermissions",
+        "summary": "get selectable resource types",
+        "operationId": "getSelectableResourceTypes",
         "parameters": [
           {
             "name": "integration_id",
@@ -757,6 +940,54 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSelectableResourceTypeV3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/selectable-integrations/{integration_id}/{resource_type}/permissions": {
+      "get": {
+        "tags": [
+          "Access Requests"
+        ],
+        "summary": "get selectable permissions",
+        "operationId": "getSelectablePermissions",
+        "parameters": [
+          {
+            "name": "integration_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "resource_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
                   "$ref": "#/components/schemas/SelectablePermissionsResponse"
                 }
               }
@@ -765,7 +996,7 @@
         }
       }
     },
-    "/api/v3/selectable-integrations/{integration_id}/resources": {
+    "/api/v3/selectable-integrations/{integration_id}/{resource_type}/resources": {
       "get": {
         "tags": [
           "Access Requests"
@@ -780,6 +1011,14 @@
             "schema": {
               "type": "string",
               "nullable": true
+            }
+          },
+          {
+            "name": "resource_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -826,7 +1065,7 @@
           }
         }
       },
-      "AccessFlowModelV2": {
+      "AccessFlowModelV3": {
         "required": [
           "id",
           "name",
@@ -862,7 +1101,7 @@
           "access_targets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AccessTargetModel"
+              "$ref": "#/components/schemas/AccessTargetModelV3"
             }
           },
           "approvers": {
@@ -870,6 +1109,10 @@
             "items": {
               "$ref": "#/components/schemas/ApproverModel"
             }
+          },
+          "require_all_approvers": {
+            "type": "boolean",
+            "nullable": true
           },
           "revoke_after_in_sec": {
             "format": "int32",
@@ -937,6 +1180,18 @@
           }
         }
       },
+      "AccessStatus": {
+        "enum": [
+          "PENDING",
+          "APPROVED",
+          "REJECTED",
+          "GRANTED",
+          "REVOKING",
+          "EXPIRED",
+          "FAILED"
+        ],
+        "type": "string"
+      },
       "AccessStatusModel": {
         "enum": [
           "PENDING",
@@ -949,25 +1204,25 @@
         ],
         "type": "string"
       },
-      "AccessTargetModel": {
+      "AccessTargetModelV3": {
         "required": [
-          "resource_integration_id",
+          "integration_id",
           "resource_type",
-          "resource_tag_restrictors",
+          "resource_tag_matchers",
           "permissions"
         ],
         "type": "object",
         "properties": {
-          "resource_integration_id": {
+          "integration_id": {
             "type": "string"
           },
           "resource_type": {
             "type": "string"
           },
-          "resource_tag_restrictors": {
+          "resource_tag_matchers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/TagSelectorModel"
+              "$ref": "#/components/schemas/TagModelV3"
             }
           },
           "permissions": {
@@ -975,6 +1230,61 @@
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "ActivityReportJsonExportModel": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "request_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestor_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestor_email": {
+            "type": "string",
+            "nullable": true
+          },
+          "integration": {
+            "type": "string",
+            "nullable": true
+          },
+          "resource_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "justification": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "access_flow": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -1001,6 +1311,17 @@
         ],
         "type": "string"
       },
+      "ConnectDetailsResponse": {
+        "required": [
+          "details"
+        ],
+        "type": "object",
+        "properties": {
+          "details": {
+            "type": "string"
+          }
+        }
+      },
       "ConnectionMetadata": {
         "type": "object"
       },
@@ -1015,7 +1336,7 @@
             "type": "string"
           },
           "last_connected": {
-            "type": "string",
+            "type": "number",
             "allOf": [
               {
                 "$ref": "#/components/schemas/Instant"
@@ -1028,7 +1349,7 @@
           }
         }
       },
-      "CreateAccessFlowRequestV2": {
+      "CreateAccessFlowRequestV3": {
         "required": [
           "name",
           "active",
@@ -1059,7 +1380,7 @@
           "access_targets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AccessTargetModel"
+              "$ref": "#/components/schemas/AccessTargetModelV3"
             }
           },
           "approvers": {
@@ -1067,6 +1388,10 @@
             "items": {
               "$ref": "#/components/schemas/ApproverModel"
             }
+          },
+          "require_all_approvers": {
+            "type": "boolean",
+            "nullable": true
           },
           "revoke_after_in_sec": {
             "format": "int32",
@@ -1256,9 +1581,9 @@
         }
       },
       "Instant": {
-        "format": "date-time",
-        "type": "string",
-        "example": "2022-03-10T16:15:50Z"
+        "format": "double",
+        "type": "number",
+        "example": "{seconds}.{nanos}"
       },
       "Integration": {
         "required": [
@@ -1300,7 +1625,7 @@
             "nullable": true
           },
           "last_sync_time": {
-            "type": "string",
+            "type": "number",
             "allOf": [
               {
                 "$ref": "#/components/schemas/Instant"
@@ -1407,7 +1732,7 @@
           }
         }
       },
-      "PaginatedAccessFlowSearchResponse": {
+      "PaginatedAccessFlowV3SearchResponse": {
         "required": [
           "data"
         ],
@@ -1416,7 +1741,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AccessFlowModelV2"
+              "$ref": "#/components/schemas/AccessFlowModelV3"
             }
           },
           "filter_result": {
@@ -1439,6 +1764,24 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AccessRequest"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationInfo"
+          }
+        }
+      },
+      "PaginatedResponseActivityReportJsonExportModel": {
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivityReportJsonExportModel"
             }
           },
           "pagination": {
@@ -1554,6 +1897,24 @@
           }
         }
       },
+      "PaginatedResponseSelectableResourceTypeV3": {
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SelectableResourceType"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationInfo"
+          }
+        }
+      },
       "PaginatedResponseSelectableResourceV3": {
         "required": [
           "data",
@@ -1631,6 +1992,22 @@
           }
         }
       },
+      "ReportField": {
+        "enum": [
+          "request_id",
+          "request_date",
+          "requestor_name",
+          "requestor_email",
+          "integration",
+          "resources",
+          "resource_type",
+          "permissions",
+          "justification",
+          "status",
+          "access_flow"
+        ],
+        "type": "string"
+      },
       "ResourceV3": {
         "required": [
           "id",
@@ -1689,6 +2066,25 @@
       "SelectableResource": {
         "required": [
           "id",
+          "type",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "SelectableResourceType": {
+        "required": [
+          "id",
           "name"
         ],
         "type": "object",
@@ -1701,17 +2097,17 @@
           }
         }
       },
-      "TagSelectorModel": {
+      "TagModelV3": {
         "required": [
           "name",
-          "value_wildcard"
+          "value"
         ],
         "type": "object",
         "properties": {
           "name": {
             "type": "string"
           },
-          "value_wildcard": {
+          "value": {
             "type": "string"
           }
         }
@@ -1751,7 +2147,7 @@
         ],
         "type": "string"
       },
-      "UpdateAccessFlowModelV2": {
+      "UpdateAccessFlowModelV3": {
         "required": [
           "name",
           "active",
@@ -1782,7 +2178,7 @@
           "access_targets": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AccessTargetModel"
+              "$ref": "#/components/schemas/AccessTargetModelV3"
             }
           },
           "approvers": {
@@ -1790,6 +2186,10 @@
             "items": {
               "$ref": "#/components/schemas/ApproverModel"
             }
+          },
+          "require_all_approvers": {
+            "type": "boolean",
+            "nullable": true
           },
           "revoke_after_in_sec": {
             "format": "int32",
@@ -1842,7 +2242,8 @@
           "id",
           "email",
           "first_name",
-          "last_name"
+          "last_name",
+          "active"
         ],
         "type": "object",
         "properties": {
@@ -1857,6 +2258,9 @@
           },
           "last_name": {
             "type": "string"
+          },
+          "active": {
+            "type": "boolean"
           }
         }
       }

@@ -14,28 +14,29 @@ import (
 	"encoding/json"
 )
 
-// checks if the CreateAccessFlowRequestV2 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateAccessFlowRequestV2{}
+// checks if the CreateAccessFlowRequestV3 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateAccessFlowRequestV3{}
 
-// CreateAccessFlowRequestV2 struct for CreateAccessFlowRequestV2
-type CreateAccessFlowRequestV2 struct {
+// CreateAccessFlowRequestV3 struct for CreateAccessFlowRequestV3
+type CreateAccessFlowRequestV3 struct {
 	Name                  string                             `json:"name"`
 	Active                bool                               `json:"active"`
 	TriggerType           TriggerType                        `json:"trigger_type"`
 	Grantees              []GranteeModel                     `json:"grantees"`
-	AccessTargets         []AccessTargetModel                `json:"access_targets"`
+	AccessTargets         []AccessTargetModelV3              `json:"access_targets"`
 	Approvers             []ApproverModel                    `json:"approvers"`
+	RequireAllApprovers   NullableBool                       `json:"require_all_approvers,omitempty"`
 	RevokeAfterInSec      int32                              `json:"revoke_after_in_sec"`
 	JustificationRequired bool                               `json:"justification_required"`
-	Timeframe             NullableAccessFlowModelV2Timeframe `json:"timeframe,omitempty"`
+	Timeframe             NullableAccessFlowModelV3Timeframe `json:"timeframe,omitempty"`
 }
 
-// NewCreateAccessFlowRequestV2 instantiates a new CreateAccessFlowRequestV2 object
+// NewCreateAccessFlowRequestV3 instantiates a new CreateAccessFlowRequestV3 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAccessFlowRequestV2(name string, active bool, triggerType TriggerType, grantees []GranteeModel, accessTargets []AccessTargetModel, approvers []ApproverModel, revokeAfterInSec int32, justificationRequired bool) *CreateAccessFlowRequestV2 {
-	this := CreateAccessFlowRequestV2{}
+func NewCreateAccessFlowRequestV3(name string, active bool, triggerType TriggerType, grantees []GranteeModel, accessTargets []AccessTargetModelV3, approvers []ApproverModel, revokeAfterInSec int32, justificationRequired bool) *CreateAccessFlowRequestV3 {
+	this := CreateAccessFlowRequestV3{}
 	this.Name = name
 	this.Active = active
 	this.TriggerType = triggerType
@@ -47,16 +48,16 @@ func NewCreateAccessFlowRequestV2(name string, active bool, triggerType TriggerT
 	return &this
 }
 
-// NewCreateAccessFlowRequestV2WithDefaults instantiates a new CreateAccessFlowRequestV2 object
+// NewCreateAccessFlowRequestV3WithDefaults instantiates a new CreateAccessFlowRequestV3 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateAccessFlowRequestV2WithDefaults() *CreateAccessFlowRequestV2 {
-	this := CreateAccessFlowRequestV2{}
+func NewCreateAccessFlowRequestV3WithDefaults() *CreateAccessFlowRequestV3 {
+	this := CreateAccessFlowRequestV3{}
 	return &this
 }
 
 // GetName returns the Name field value
-func (o *CreateAccessFlowRequestV2) GetName() string {
+func (o *CreateAccessFlowRequestV3) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -67,7 +68,7 @@ func (o *CreateAccessFlowRequestV2) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetNameOk() (*string, bool) {
+func (o *CreateAccessFlowRequestV3) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +76,12 @@ func (o *CreateAccessFlowRequestV2) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *CreateAccessFlowRequestV2) SetName(v string) {
+func (o *CreateAccessFlowRequestV3) SetName(v string) {
 	o.Name = v
 }
 
 // GetActive returns the Active field value
-func (o *CreateAccessFlowRequestV2) GetActive() bool {
+func (o *CreateAccessFlowRequestV3) GetActive() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -91,7 +92,7 @@ func (o *CreateAccessFlowRequestV2) GetActive() bool {
 
 // GetActiveOk returns a tuple with the Active field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetActiveOk() (*bool, bool) {
+func (o *CreateAccessFlowRequestV3) GetActiveOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,12 +100,12 @@ func (o *CreateAccessFlowRequestV2) GetActiveOk() (*bool, bool) {
 }
 
 // SetActive sets field value
-func (o *CreateAccessFlowRequestV2) SetActive(v bool) {
+func (o *CreateAccessFlowRequestV3) SetActive(v bool) {
 	o.Active = v
 }
 
 // GetTriggerType returns the TriggerType field value
-func (o *CreateAccessFlowRequestV2) GetTriggerType() TriggerType {
+func (o *CreateAccessFlowRequestV3) GetTriggerType() TriggerType {
 	if o == nil {
 		var ret TriggerType
 		return ret
@@ -115,7 +116,7 @@ func (o *CreateAccessFlowRequestV2) GetTriggerType() TriggerType {
 
 // GetTriggerTypeOk returns a tuple with the TriggerType field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetTriggerTypeOk() (*TriggerType, bool) {
+func (o *CreateAccessFlowRequestV3) GetTriggerTypeOk() (*TriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,12 +124,12 @@ func (o *CreateAccessFlowRequestV2) GetTriggerTypeOk() (*TriggerType, bool) {
 }
 
 // SetTriggerType sets field value
-func (o *CreateAccessFlowRequestV2) SetTriggerType(v TriggerType) {
+func (o *CreateAccessFlowRequestV3) SetTriggerType(v TriggerType) {
 	o.TriggerType = v
 }
 
 // GetGrantees returns the Grantees field value
-func (o *CreateAccessFlowRequestV2) GetGrantees() []GranteeModel {
+func (o *CreateAccessFlowRequestV3) GetGrantees() []GranteeModel {
 	if o == nil {
 		var ret []GranteeModel
 		return ret
@@ -139,7 +140,7 @@ func (o *CreateAccessFlowRequestV2) GetGrantees() []GranteeModel {
 
 // GetGranteesOk returns a tuple with the Grantees field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetGranteesOk() ([]GranteeModel, bool) {
+func (o *CreateAccessFlowRequestV3) GetGranteesOk() ([]GranteeModel, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,14 +148,14 @@ func (o *CreateAccessFlowRequestV2) GetGranteesOk() ([]GranteeModel, bool) {
 }
 
 // SetGrantees sets field value
-func (o *CreateAccessFlowRequestV2) SetGrantees(v []GranteeModel) {
+func (o *CreateAccessFlowRequestV3) SetGrantees(v []GranteeModel) {
 	o.Grantees = v
 }
 
 // GetAccessTargets returns the AccessTargets field value
-func (o *CreateAccessFlowRequestV2) GetAccessTargets() []AccessTargetModel {
+func (o *CreateAccessFlowRequestV3) GetAccessTargets() []AccessTargetModelV3 {
 	if o == nil {
-		var ret []AccessTargetModel
+		var ret []AccessTargetModelV3
 		return ret
 	}
 
@@ -163,7 +164,7 @@ func (o *CreateAccessFlowRequestV2) GetAccessTargets() []AccessTargetModel {
 
 // GetAccessTargetsOk returns a tuple with the AccessTargets field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetAccessTargetsOk() ([]AccessTargetModel, bool) {
+func (o *CreateAccessFlowRequestV3) GetAccessTargetsOk() ([]AccessTargetModelV3, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -171,12 +172,12 @@ func (o *CreateAccessFlowRequestV2) GetAccessTargetsOk() ([]AccessTargetModel, b
 }
 
 // SetAccessTargets sets field value
-func (o *CreateAccessFlowRequestV2) SetAccessTargets(v []AccessTargetModel) {
+func (o *CreateAccessFlowRequestV3) SetAccessTargets(v []AccessTargetModelV3) {
 	o.AccessTargets = v
 }
 
 // GetApprovers returns the Approvers field value
-func (o *CreateAccessFlowRequestV2) GetApprovers() []ApproverModel {
+func (o *CreateAccessFlowRequestV3) GetApprovers() []ApproverModel {
 	if o == nil {
 		var ret []ApproverModel
 		return ret
@@ -187,7 +188,7 @@ func (o *CreateAccessFlowRequestV2) GetApprovers() []ApproverModel {
 
 // GetApproversOk returns a tuple with the Approvers field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetApproversOk() ([]ApproverModel, bool) {
+func (o *CreateAccessFlowRequestV3) GetApproversOk() ([]ApproverModel, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,12 +196,55 @@ func (o *CreateAccessFlowRequestV2) GetApproversOk() ([]ApproverModel, bool) {
 }
 
 // SetApprovers sets field value
-func (o *CreateAccessFlowRequestV2) SetApprovers(v []ApproverModel) {
+func (o *CreateAccessFlowRequestV3) SetApprovers(v []ApproverModel) {
 	o.Approvers = v
 }
 
+// GetRequireAllApprovers returns the RequireAllApprovers field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAccessFlowRequestV3) GetRequireAllApprovers() bool {
+	if o == nil || IsNil(o.RequireAllApprovers.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.RequireAllApprovers.Get()
+}
+
+// GetRequireAllApproversOk returns a tuple with the RequireAllApprovers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAccessFlowRequestV3) GetRequireAllApproversOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RequireAllApprovers.Get(), o.RequireAllApprovers.IsSet()
+}
+
+// HasRequireAllApprovers returns a boolean if a field has been set.
+func (o *CreateAccessFlowRequestV3) HasRequireAllApprovers() bool {
+	if o != nil && o.RequireAllApprovers.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRequireAllApprovers gets a reference to the given NullableBool and assigns it to the RequireAllApprovers field.
+func (o *CreateAccessFlowRequestV3) SetRequireAllApprovers(v bool) {
+	o.RequireAllApprovers.Set(&v)
+}
+
+// SetRequireAllApproversNil sets the value for RequireAllApprovers to be an explicit nil
+func (o *CreateAccessFlowRequestV3) SetRequireAllApproversNil() {
+	o.RequireAllApprovers.Set(nil)
+}
+
+// UnsetRequireAllApprovers ensures that no value is present for RequireAllApprovers, not even an explicit nil
+func (o *CreateAccessFlowRequestV3) UnsetRequireAllApprovers() {
+	o.RequireAllApprovers.Unset()
+}
+
 // GetRevokeAfterInSec returns the RevokeAfterInSec field value
-func (o *CreateAccessFlowRequestV2) GetRevokeAfterInSec() int32 {
+func (o *CreateAccessFlowRequestV3) GetRevokeAfterInSec() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -211,7 +255,7 @@ func (o *CreateAccessFlowRequestV2) GetRevokeAfterInSec() int32 {
 
 // GetRevokeAfterInSecOk returns a tuple with the RevokeAfterInSec field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetRevokeAfterInSecOk() (*int32, bool) {
+func (o *CreateAccessFlowRequestV3) GetRevokeAfterInSecOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -219,12 +263,12 @@ func (o *CreateAccessFlowRequestV2) GetRevokeAfterInSecOk() (*int32, bool) {
 }
 
 // SetRevokeAfterInSec sets field value
-func (o *CreateAccessFlowRequestV2) SetRevokeAfterInSec(v int32) {
+func (o *CreateAccessFlowRequestV3) SetRevokeAfterInSec(v int32) {
 	o.RevokeAfterInSec = v
 }
 
 // GetJustificationRequired returns the JustificationRequired field value
-func (o *CreateAccessFlowRequestV2) GetJustificationRequired() bool {
+func (o *CreateAccessFlowRequestV3) GetJustificationRequired() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -235,7 +279,7 @@ func (o *CreateAccessFlowRequestV2) GetJustificationRequired() bool {
 
 // GetJustificationRequiredOk returns a tuple with the JustificationRequired field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccessFlowRequestV2) GetJustificationRequiredOk() (*bool, bool) {
+func (o *CreateAccessFlowRequestV3) GetJustificationRequiredOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,14 +287,14 @@ func (o *CreateAccessFlowRequestV2) GetJustificationRequiredOk() (*bool, bool) {
 }
 
 // SetJustificationRequired sets field value
-func (o *CreateAccessFlowRequestV2) SetJustificationRequired(v bool) {
+func (o *CreateAccessFlowRequestV3) SetJustificationRequired(v bool) {
 	o.JustificationRequired = v
 }
 
 // GetTimeframe returns the Timeframe field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateAccessFlowRequestV2) GetTimeframe() AccessFlowModelV2Timeframe {
+func (o *CreateAccessFlowRequestV3) GetTimeframe() AccessFlowModelV3Timeframe {
 	if o == nil || IsNil(o.Timeframe.Get()) {
-		var ret AccessFlowModelV2Timeframe
+		var ret AccessFlowModelV3Timeframe
 		return ret
 	}
 	return *o.Timeframe.Get()
@@ -259,7 +303,7 @@ func (o *CreateAccessFlowRequestV2) GetTimeframe() AccessFlowModelV2Timeframe {
 // GetTimeframeOk returns a tuple with the Timeframe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateAccessFlowRequestV2) GetTimeframeOk() (*AccessFlowModelV2Timeframe, bool) {
+func (o *CreateAccessFlowRequestV3) GetTimeframeOk() (*AccessFlowModelV3Timeframe, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -267,7 +311,7 @@ func (o *CreateAccessFlowRequestV2) GetTimeframeOk() (*AccessFlowModelV2Timefram
 }
 
 // HasTimeframe returns a boolean if a field has been set.
-func (o *CreateAccessFlowRequestV2) HasTimeframe() bool {
+func (o *CreateAccessFlowRequestV3) HasTimeframe() bool {
 	if o != nil && o.Timeframe.IsSet() {
 		return true
 	}
@@ -275,22 +319,22 @@ func (o *CreateAccessFlowRequestV2) HasTimeframe() bool {
 	return false
 }
 
-// SetTimeframe gets a reference to the given NullableAccessFlowModelV2Timeframe and assigns it to the Timeframe field.
-func (o *CreateAccessFlowRequestV2) SetTimeframe(v AccessFlowModelV2Timeframe) {
+// SetTimeframe gets a reference to the given NullableAccessFlowModelV3Timeframe and assigns it to the Timeframe field.
+func (o *CreateAccessFlowRequestV3) SetTimeframe(v AccessFlowModelV3Timeframe) {
 	o.Timeframe.Set(&v)
 }
 
 // SetTimeframeNil sets the value for Timeframe to be an explicit nil
-func (o *CreateAccessFlowRequestV2) SetTimeframeNil() {
+func (o *CreateAccessFlowRequestV3) SetTimeframeNil() {
 	o.Timeframe.Set(nil)
 }
 
 // UnsetTimeframe ensures that no value is present for Timeframe, not even an explicit nil
-func (o *CreateAccessFlowRequestV2) UnsetTimeframe() {
+func (o *CreateAccessFlowRequestV3) UnsetTimeframe() {
 	o.Timeframe.Unset()
 }
 
-func (o CreateAccessFlowRequestV2) MarshalJSON() ([]byte, error) {
+func (o CreateAccessFlowRequestV3) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -298,7 +342,7 @@ func (o CreateAccessFlowRequestV2) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateAccessFlowRequestV2) ToMap() (map[string]interface{}, error) {
+func (o CreateAccessFlowRequestV3) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	toSerialize["active"] = o.Active
@@ -306,6 +350,9 @@ func (o CreateAccessFlowRequestV2) ToMap() (map[string]interface{}, error) {
 	toSerialize["grantees"] = o.Grantees
 	toSerialize["access_targets"] = o.AccessTargets
 	toSerialize["approvers"] = o.Approvers
+	if o.RequireAllApprovers.IsSet() {
+		toSerialize["require_all_approvers"] = o.RequireAllApprovers.Get()
+	}
 	toSerialize["revoke_after_in_sec"] = o.RevokeAfterInSec
 	toSerialize["justification_required"] = o.JustificationRequired
 	if o.Timeframe.IsSet() {
@@ -314,38 +361,38 @@ func (o CreateAccessFlowRequestV2) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableCreateAccessFlowRequestV2 struct {
-	value *CreateAccessFlowRequestV2
+type NullableCreateAccessFlowRequestV3 struct {
+	value *CreateAccessFlowRequestV3
 	isSet bool
 }
 
-func (v NullableCreateAccessFlowRequestV2) Get() *CreateAccessFlowRequestV2 {
+func (v NullableCreateAccessFlowRequestV3) Get() *CreateAccessFlowRequestV3 {
 	return v.value
 }
 
-func (v *NullableCreateAccessFlowRequestV2) Set(val *CreateAccessFlowRequestV2) {
+func (v *NullableCreateAccessFlowRequestV3) Set(val *CreateAccessFlowRequestV3) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateAccessFlowRequestV2) IsSet() bool {
+func (v NullableCreateAccessFlowRequestV3) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateAccessFlowRequestV2) Unset() {
+func (v *NullableCreateAccessFlowRequestV3) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateAccessFlowRequestV2(val *CreateAccessFlowRequestV2) *NullableCreateAccessFlowRequestV2 {
-	return &NullableCreateAccessFlowRequestV2{value: val, isSet: true}
+func NewNullableCreateAccessFlowRequestV3(val *CreateAccessFlowRequestV3) *NullableCreateAccessFlowRequestV3 {
+	return &NullableCreateAccessFlowRequestV3{value: val, isSet: true}
 }
 
-func (v NullableCreateAccessFlowRequestV2) MarshalJSON() ([]byte, error) {
+func (v NullableCreateAccessFlowRequestV3) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateAccessFlowRequestV2) UnmarshalJSON(src []byte) error {
+func (v *NullableCreateAccessFlowRequestV3) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

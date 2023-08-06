@@ -25,15 +25,15 @@ type AccessFlowsApiService service
 type ApiCreateAccessFlowRequest struct {
 	ctx                       context.Context
 	ApiService                *AccessFlowsApiService
-	createAccessFlowRequestV2 *CreateAccessFlowRequestV2
+	createAccessFlowRequestV3 *CreateAccessFlowRequestV3
 }
 
-func (r ApiCreateAccessFlowRequest) CreateAccessFlowRequestV2(createAccessFlowRequestV2 CreateAccessFlowRequestV2) ApiCreateAccessFlowRequest {
-	r.createAccessFlowRequestV2 = &createAccessFlowRequestV2
+func (r ApiCreateAccessFlowRequest) CreateAccessFlowRequestV3(createAccessFlowRequestV3 CreateAccessFlowRequestV3) ApiCreateAccessFlowRequest {
+	r.createAccessFlowRequestV3 = &createAccessFlowRequestV3
 	return r
 }
 
-func (r ApiCreateAccessFlowRequest) Execute() (*AccessFlowModelV2, *http.Response, error) {
+func (r ApiCreateAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
 	return r.ApiService.CreateAccessFlowExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *AccessFlowsApiService) CreateAccessFlow(ctx context.Context) ApiCreateA
 
 // Execute executes the request
 //
-//	@return AccessFlowModelV2
-func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowRequest) (*AccessFlowModelV2, *http.Response, error) {
+//	@return AccessFlowModelV3
+func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV2
+		localVarReturnValue *AccessFlowModelV3
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.CreateAccessFlow")
@@ -71,8 +71,8 @@ func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createAccessFlowRequestV2 == nil {
-		return localVarReturnValue, nil, reportError("createAccessFlowRequestV2 is required and must be specified")
+	if r.createAccessFlowRequestV3 == nil {
+		return localVarReturnValue, nil, reportError("createAccessFlowRequestV3 is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -93,7 +93,7 @@ func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createAccessFlowRequestV2
+	localVarPostBody = r.createAccessFlowRequestV3
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -239,7 +239,7 @@ type ApiGetAccessFlowRequest struct {
 	id         string
 }
 
-func (r ApiGetAccessFlowRequest) Execute() (*AccessFlowModelV2, *http.Response, error) {
+func (r ApiGetAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
 	return r.ApiService.GetAccessFlowExecute(r)
 }
 
@@ -260,13 +260,13 @@ func (a *AccessFlowsApiService) GetAccessFlow(ctx context.Context, id string) Ap
 
 // Execute executes the request
 //
-//	@return AccessFlowModelV2
-func (a *AccessFlowsApiService) GetAccessFlowExecute(r ApiGetAccessFlowRequest) (*AccessFlowModelV2, *http.Response, error) {
+//	@return AccessFlowModelV3
+func (a *AccessFlowsApiService) GetAccessFlowExecute(r ApiGetAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV2
+		localVarReturnValue *AccessFlowModelV3
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.GetAccessFlow")
@@ -352,7 +352,7 @@ func (r ApiListAccessFlowsRequest) OnlyActive(onlyActive bool) ApiListAccessFlow
 	return r
 }
 
-func (r ApiListAccessFlowsRequest) Execute() (*PaginatedAccessFlowSearchResponse, *http.Response, error) {
+func (r ApiListAccessFlowsRequest) Execute() (*PaginatedAccessFlowV3SearchResponse, *http.Response, error) {
 	return r.ApiService.ListAccessFlowsExecute(r)
 }
 
@@ -371,13 +371,13 @@ func (a *AccessFlowsApiService) ListAccessFlows(ctx context.Context) ApiListAcce
 
 // Execute executes the request
 //
-//	@return PaginatedAccessFlowSearchResponse
-func (a *AccessFlowsApiService) ListAccessFlowsExecute(r ApiListAccessFlowsRequest) (*PaginatedAccessFlowSearchResponse, *http.Response, error) {
+//	@return PaginatedAccessFlowV3SearchResponse
+func (a *AccessFlowsApiService) ListAccessFlowsExecute(r ApiListAccessFlowsRequest) (*PaginatedAccessFlowV3SearchResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PaginatedAccessFlowSearchResponse
+		localVarReturnValue *PaginatedAccessFlowV3SearchResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.ListAccessFlows")
@@ -455,15 +455,15 @@ type ApiUpdateAccessFlowRequest struct {
 	ctx                     context.Context
 	ApiService              *AccessFlowsApiService
 	id                      string
-	updateAccessFlowModelV2 *UpdateAccessFlowModelV2
+	updateAccessFlowModelV3 *UpdateAccessFlowModelV3
 }
 
-func (r ApiUpdateAccessFlowRequest) UpdateAccessFlowModelV2(updateAccessFlowModelV2 UpdateAccessFlowModelV2) ApiUpdateAccessFlowRequest {
-	r.updateAccessFlowModelV2 = &updateAccessFlowModelV2
+func (r ApiUpdateAccessFlowRequest) UpdateAccessFlowModelV3(updateAccessFlowModelV3 UpdateAccessFlowModelV3) ApiUpdateAccessFlowRequest {
+	r.updateAccessFlowModelV3 = &updateAccessFlowModelV3
 	return r
 }
 
-func (r ApiUpdateAccessFlowRequest) Execute() (*AccessFlowModelV2, *http.Response, error) {
+func (r ApiUpdateAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
 	return r.ApiService.UpdateAccessFlowExecute(r)
 }
 
@@ -484,13 +484,13 @@ func (a *AccessFlowsApiService) UpdateAccessFlow(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return AccessFlowModelV2
-func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowRequest) (*AccessFlowModelV2, *http.Response, error) {
+//	@return AccessFlowModelV3
+func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV2
+		localVarReturnValue *AccessFlowModelV3
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.UpdateAccessFlow")
@@ -504,8 +504,8 @@ func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateAccessFlowModelV2 == nil {
-		return localVarReturnValue, nil, reportError("updateAccessFlowModelV2 is required and must be specified")
+	if r.updateAccessFlowModelV3 == nil {
+		return localVarReturnValue, nil, reportError("updateAccessFlowModelV3 is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -526,7 +526,7 @@ func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateAccessFlowModelV2
+	localVarPostBody = r.updateAccessFlowModelV3
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

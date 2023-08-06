@@ -23,18 +23,20 @@ type UserModel struct {
 	Email     string `json:"email"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Active    bool   `json:"active"`
 }
 
 // NewUserModel instantiates a new UserModel object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserModel(id string, email string, firstName string, lastName string) *UserModel {
+func NewUserModel(id string, email string, firstName string, lastName string, active bool) *UserModel {
 	this := UserModel{}
 	this.Id = id
 	this.Email = email
 	this.FirstName = firstName
 	this.LastName = lastName
+	this.Active = active
 	return &this
 }
 
@@ -142,6 +144,30 @@ func (o *UserModel) SetLastName(v string) {
 	o.LastName = v
 }
 
+// GetActive returns the Active field value
+func (o *UserModel) GetActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value
+// and a boolean to check if the value has been set.
+func (o *UserModel) GetActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Active, true
+}
+
+// SetActive sets field value
+func (o *UserModel) SetActive(v bool) {
+	o.Active = v
+}
+
 func (o UserModel) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -156,6 +182,7 @@ func (o UserModel) ToMap() (map[string]interface{}, error) {
 	toSerialize["email"] = o.Email
 	toSerialize["first_name"] = o.FirstName
 	toSerialize["last_name"] = o.LastName
+	toSerialize["active"] = o.Active
 	return toSerialize, nil
 }
 

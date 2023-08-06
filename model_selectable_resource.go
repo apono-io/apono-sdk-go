@@ -20,6 +20,7 @@ var _ MappedNullable = &SelectableResource{}
 // SelectableResource struct for SelectableResource
 type SelectableResource struct {
 	Id   string `json:"id"`
+	Type string `json:"type"`
 	Name string `json:"name"`
 }
 
@@ -27,9 +28,10 @@ type SelectableResource struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSelectableResource(id string, name string) *SelectableResource {
+func NewSelectableResource(id string, type_ string, name string) *SelectableResource {
 	this := SelectableResource{}
 	this.Id = id
+	this.Type = type_
 	this.Name = name
 	return &this
 }
@@ -64,6 +66,30 @@ func (o *SelectableResource) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *SelectableResource) SetId(v string) {
 	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *SelectableResource) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *SelectableResource) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *SelectableResource) SetType(v string) {
+	o.Type = v
 }
 
 // GetName returns the Name field value
@@ -101,6 +127,7 @@ func (o SelectableResource) MarshalJSON() ([]byte, error) {
 func (o SelectableResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }

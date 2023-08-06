@@ -14,23 +14,23 @@ import (
 	"encoding/json"
 )
 
-// checks if the AccessFlowModelV2Timeframe type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AccessFlowModelV2Timeframe{}
+// checks if the AccessFlowModelV3Timeframe type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessFlowModelV3Timeframe{}
 
-// AccessFlowModelV2Timeframe struct for AccessFlowModelV2Timeframe
-type AccessFlowModelV2Timeframe struct {
+// AccessFlowModelV3Timeframe struct for AccessFlowModelV3Timeframe
+type AccessFlowModelV3Timeframe struct {
 	StartTimeSec int64       `json:"start_time_sec"`
 	EndTimeSec   int64       `json:"end_time_sec"`
 	DaysInWeek   []DayOfWeek `json:"days_in_week"`
 	TimeZone     string      `json:"time_zone"`
 }
 
-// NewAccessFlowModelV2Timeframe instantiates a new AccessFlowModelV2Timeframe object
+// NewAccessFlowModelV3Timeframe instantiates a new AccessFlowModelV3Timeframe object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessFlowModelV2Timeframe(startTimeSec int64, endTimeSec int64, daysInWeek []DayOfWeek, timeZone string) *AccessFlowModelV2Timeframe {
-	this := AccessFlowModelV2Timeframe{}
+func NewAccessFlowModelV3Timeframe(startTimeSec int64, endTimeSec int64, daysInWeek []DayOfWeek, timeZone string) *AccessFlowModelV3Timeframe {
+	this := AccessFlowModelV3Timeframe{}
 	this.StartTimeSec = startTimeSec
 	this.EndTimeSec = endTimeSec
 	this.DaysInWeek = daysInWeek
@@ -38,16 +38,16 @@ func NewAccessFlowModelV2Timeframe(startTimeSec int64, endTimeSec int64, daysInW
 	return &this
 }
 
-// NewAccessFlowModelV2TimeframeWithDefaults instantiates a new AccessFlowModelV2Timeframe object
+// NewAccessFlowModelV3TimeframeWithDefaults instantiates a new AccessFlowModelV3Timeframe object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAccessFlowModelV2TimeframeWithDefaults() *AccessFlowModelV2Timeframe {
-	this := AccessFlowModelV2Timeframe{}
+func NewAccessFlowModelV3TimeframeWithDefaults() *AccessFlowModelV3Timeframe {
+	this := AccessFlowModelV3Timeframe{}
 	return &this
 }
 
 // GetStartTimeSec returns the StartTimeSec field value
-func (o *AccessFlowModelV2Timeframe) GetStartTimeSec() int64 {
+func (o *AccessFlowModelV3Timeframe) GetStartTimeSec() int64 {
 	if o == nil {
 		var ret int64
 		return ret
@@ -58,7 +58,7 @@ func (o *AccessFlowModelV2Timeframe) GetStartTimeSec() int64 {
 
 // GetStartTimeSecOk returns a tuple with the StartTimeSec field value
 // and a boolean to check if the value has been set.
-func (o *AccessFlowModelV2Timeframe) GetStartTimeSecOk() (*int64, bool) {
+func (o *AccessFlowModelV3Timeframe) GetStartTimeSecOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,12 +66,12 @@ func (o *AccessFlowModelV2Timeframe) GetStartTimeSecOk() (*int64, bool) {
 }
 
 // SetStartTimeSec sets field value
-func (o *AccessFlowModelV2Timeframe) SetStartTimeSec(v int64) {
+func (o *AccessFlowModelV3Timeframe) SetStartTimeSec(v int64) {
 	o.StartTimeSec = v
 }
 
 // GetEndTimeSec returns the EndTimeSec field value
-func (o *AccessFlowModelV2Timeframe) GetEndTimeSec() int64 {
+func (o *AccessFlowModelV3Timeframe) GetEndTimeSec() int64 {
 	if o == nil {
 		var ret int64
 		return ret
@@ -82,7 +82,7 @@ func (o *AccessFlowModelV2Timeframe) GetEndTimeSec() int64 {
 
 // GetEndTimeSecOk returns a tuple with the EndTimeSec field value
 // and a boolean to check if the value has been set.
-func (o *AccessFlowModelV2Timeframe) GetEndTimeSecOk() (*int64, bool) {
+func (o *AccessFlowModelV3Timeframe) GetEndTimeSecOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,12 +90,12 @@ func (o *AccessFlowModelV2Timeframe) GetEndTimeSecOk() (*int64, bool) {
 }
 
 // SetEndTimeSec sets field value
-func (o *AccessFlowModelV2Timeframe) SetEndTimeSec(v int64) {
+func (o *AccessFlowModelV3Timeframe) SetEndTimeSec(v int64) {
 	o.EndTimeSec = v
 }
 
 // GetDaysInWeek returns the DaysInWeek field value
-func (o *AccessFlowModelV2Timeframe) GetDaysInWeek() []DayOfWeek {
+func (o *AccessFlowModelV3Timeframe) GetDaysInWeek() []DayOfWeek {
 	if o == nil {
 		var ret []DayOfWeek
 		return ret
@@ -106,7 +106,7 @@ func (o *AccessFlowModelV2Timeframe) GetDaysInWeek() []DayOfWeek {
 
 // GetDaysInWeekOk returns a tuple with the DaysInWeek field value
 // and a boolean to check if the value has been set.
-func (o *AccessFlowModelV2Timeframe) GetDaysInWeekOk() ([]DayOfWeek, bool) {
+func (o *AccessFlowModelV3Timeframe) GetDaysInWeekOk() ([]DayOfWeek, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -114,12 +114,12 @@ func (o *AccessFlowModelV2Timeframe) GetDaysInWeekOk() ([]DayOfWeek, bool) {
 }
 
 // SetDaysInWeek sets field value
-func (o *AccessFlowModelV2Timeframe) SetDaysInWeek(v []DayOfWeek) {
+func (o *AccessFlowModelV3Timeframe) SetDaysInWeek(v []DayOfWeek) {
 	o.DaysInWeek = v
 }
 
 // GetTimeZone returns the TimeZone field value
-func (o *AccessFlowModelV2Timeframe) GetTimeZone() string {
+func (o *AccessFlowModelV3Timeframe) GetTimeZone() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -130,7 +130,7 @@ func (o *AccessFlowModelV2Timeframe) GetTimeZone() string {
 
 // GetTimeZoneOk returns a tuple with the TimeZone field value
 // and a boolean to check if the value has been set.
-func (o *AccessFlowModelV2Timeframe) GetTimeZoneOk() (*string, bool) {
+func (o *AccessFlowModelV3Timeframe) GetTimeZoneOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -138,11 +138,11 @@ func (o *AccessFlowModelV2Timeframe) GetTimeZoneOk() (*string, bool) {
 }
 
 // SetTimeZone sets field value
-func (o *AccessFlowModelV2Timeframe) SetTimeZone(v string) {
+func (o *AccessFlowModelV3Timeframe) SetTimeZone(v string) {
 	o.TimeZone = v
 }
 
-func (o AccessFlowModelV2Timeframe) MarshalJSON() ([]byte, error) {
+func (o AccessFlowModelV3Timeframe) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -150,7 +150,7 @@ func (o AccessFlowModelV2Timeframe) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AccessFlowModelV2Timeframe) ToMap() (map[string]interface{}, error) {
+func (o AccessFlowModelV3Timeframe) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["start_time_sec"] = o.StartTimeSec
 	toSerialize["end_time_sec"] = o.EndTimeSec
@@ -159,38 +159,38 @@ func (o AccessFlowModelV2Timeframe) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableAccessFlowModelV2Timeframe struct {
-	value *AccessFlowModelV2Timeframe
+type NullableAccessFlowModelV3Timeframe struct {
+	value *AccessFlowModelV3Timeframe
 	isSet bool
 }
 
-func (v NullableAccessFlowModelV2Timeframe) Get() *AccessFlowModelV2Timeframe {
+func (v NullableAccessFlowModelV3Timeframe) Get() *AccessFlowModelV3Timeframe {
 	return v.value
 }
 
-func (v *NullableAccessFlowModelV2Timeframe) Set(val *AccessFlowModelV2Timeframe) {
+func (v *NullableAccessFlowModelV3Timeframe) Set(val *AccessFlowModelV3Timeframe) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAccessFlowModelV2Timeframe) IsSet() bool {
+func (v NullableAccessFlowModelV3Timeframe) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAccessFlowModelV2Timeframe) Unset() {
+func (v *NullableAccessFlowModelV3Timeframe) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAccessFlowModelV2Timeframe(val *AccessFlowModelV2Timeframe) *NullableAccessFlowModelV2Timeframe {
-	return &NullableAccessFlowModelV2Timeframe{value: val, isSet: true}
+func NewNullableAccessFlowModelV3Timeframe(val *AccessFlowModelV3Timeframe) *NullableAccessFlowModelV3Timeframe {
+	return &NullableAccessFlowModelV3Timeframe{value: val, isSet: true}
 }
 
-func (v NullableAccessFlowModelV2Timeframe) MarshalJSON() ([]byte, error) {
+func (v NullableAccessFlowModelV3Timeframe) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAccessFlowModelV2Timeframe) UnmarshalJSON(src []byte) error {
+func (v *NullableAccessFlowModelV3Timeframe) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
