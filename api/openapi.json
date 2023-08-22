@@ -815,6 +815,76 @@
         }
       }
     },
+    "/api/v3/integrations/resources/{resource_id}/user-tags": {
+      "get": {
+        "tags": [
+          "Integrations"
+        ],
+        "summary": "get user tags of a resource",
+        "operationId": "getResourceUserTags",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUserTagsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Integrations"
+        ],
+        "summary": "update user tags of a resource",
+        "operationId": "updateResourceUserTags",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateResourceUserTagsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v3/integrations/{id}/permissions": {
       "get": {
         "tags": [
@@ -1689,7 +1759,8 @@
           "id",
           "label",
           "values",
-          "default"
+          "default",
+          "optional"
         ],
         "type": "object",
         "properties": {
@@ -1707,6 +1778,9 @@
           },
           "default": {
             "type": "string"
+          },
+          "optional": {
+            "type": "boolean"
           }
         }
       },
@@ -1871,7 +1945,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ResourceV3"
+              "$ref": "#/components/schemas/ResourceResponse"
             }
           },
           "pagination": {
@@ -2004,11 +2078,12 @@
           "permissions",
           "justification",
           "status",
-          "access_flow"
+          "access_flow",
+          "bundle_name"
         ],
         "type": "string"
       },
-      "ResourceV3": {
+      "ResourceResponse": {
         "required": [
           "id",
           "name",
@@ -2024,6 +2099,24 @@
           },
           "type": {
             "type": "string"
+          }
+        }
+      },
+      "ResourceUserTagsResponse": {
+        "required": [
+          "resource_id",
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "resource_id": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },
@@ -2234,6 +2327,20 @@
               }
             ],
             "nullable": true
+          }
+        }
+      },
+      "UpdateResourceUserTagsRequest": {
+        "required": [
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },
