@@ -19,15 +19,15 @@ var _ MappedNullable = &PaginatedResponseResourceV3Response{}
 
 // PaginatedResponseResourceV3Response struct for PaginatedResponseResourceV3Response
 type PaginatedResponseResourceV3Response struct {
-	Data       []ResourceV3   `json:"data"`
-	Pagination PaginationInfo `json:"pagination"`
+	Data       []ResourceResponse `json:"data"`
+	Pagination PaginationInfo     `json:"pagination"`
 }
 
 // NewPaginatedResponseResourceV3Response instantiates a new PaginatedResponseResourceV3Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaginatedResponseResourceV3Response(data []ResourceV3, pagination PaginationInfo) *PaginatedResponseResourceV3Response {
+func NewPaginatedResponseResourceV3Response(data []ResourceResponse, pagination PaginationInfo) *PaginatedResponseResourceV3Response {
 	this := PaginatedResponseResourceV3Response{}
 	this.Data = data
 	this.Pagination = pagination
@@ -43,9 +43,9 @@ func NewPaginatedResponseResourceV3ResponseWithDefaults() *PaginatedResponseReso
 }
 
 // GetData returns the Data field value
-func (o *PaginatedResponseResourceV3Response) GetData() []ResourceV3 {
+func (o *PaginatedResponseResourceV3Response) GetData() []ResourceResponse {
 	if o == nil {
-		var ret []ResourceV3
+		var ret []ResourceResponse
 		return ret
 	}
 
@@ -54,7 +54,7 @@ func (o *PaginatedResponseResourceV3Response) GetData() []ResourceV3 {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *PaginatedResponseResourceV3Response) GetDataOk() ([]ResourceV3, bool) {
+func (o *PaginatedResponseResourceV3Response) GetDataOk() ([]ResourceResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -62,7 +62,7 @@ func (o *PaginatedResponseResourceV3Response) GetDataOk() ([]ResourceV3, bool) {
 }
 
 // SetData sets field value
-func (o *PaginatedResponseResourceV3Response) SetData(v []ResourceV3) {
+func (o *PaginatedResponseResourceV3Response) SetData(v []ResourceResponse) {
 	o.Data = v
 }
 

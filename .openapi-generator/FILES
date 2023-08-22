@@ -49,7 +49,8 @@ model_paginated_response_user_model.go
 model_pagination_info.go
 model_permission_v3.go
 model_report_field.go
-model_resource_v3.go
+model_resource_response.go
+model_resource_user_tags_response.go
 model_selectable_integration.go
 model_selectable_permissions_response.go
 model_selectable_resource.go
@@ -59,6 +60,7 @@ model_timeframe.go
 model_trigger_type.go
 model_update_access_flow_model_v3.go
 model_update_integration.go
+model_update_resource_user_tags_request.go
 model_user_model.go
 response.go
 utils.go

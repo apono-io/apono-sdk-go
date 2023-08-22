@@ -31,6 +31,7 @@ const (
 	REPORTFIELD_JUSTIFICATION   ReportField = "justification"
 	REPORTFIELD_STATUS          ReportField = "status"
 	REPORTFIELD_ACCESS_FLOW     ReportField = "access_flow"
+	REPORTFIELD_BUNDLE_NAME     ReportField = "bundle_name"
 )
 
 // All allowed values of ReportField enum
@@ -46,6 +47,7 @@ var AllowedReportFieldEnumValues = []ReportField{
 	"justification",
 	"status",
 	"access_flow",
+	"bundle_name",
 }
 
 func (v *ReportField) UnmarshalJSON(src []byte) error {
