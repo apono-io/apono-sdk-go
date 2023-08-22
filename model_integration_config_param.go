@@ -19,22 +19,24 @@ var _ MappedNullable = &IntegrationConfigParam{}
 
 // IntegrationConfigParam struct for IntegrationConfigParam
 type IntegrationConfigParam struct {
-	Id      string   `json:"id"`
-	Label   string   `json:"label"`
-	Values  []string `json:"values"`
-	Default string   `json:"default"`
+	Id       string   `json:"id"`
+	Label    string   `json:"label"`
+	Values   []string `json:"values"`
+	Default  string   `json:"default"`
+	Optional bool     `json:"optional"`
 }
 
 // NewIntegrationConfigParam instantiates a new IntegrationConfigParam object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegrationConfigParam(id string, label string, values []string, default_ string) *IntegrationConfigParam {
+func NewIntegrationConfigParam(id string, label string, values []string, default_ string, optional bool) *IntegrationConfigParam {
 	this := IntegrationConfigParam{}
 	this.Id = id
 	this.Label = label
 	this.Values = values
 	this.Default = default_
+	this.Optional = optional
 	return &this
 }
 
@@ -142,6 +144,30 @@ func (o *IntegrationConfigParam) SetDefault(v string) {
 	o.Default = v
 }
 
+// GetOptional returns the Optional field value
+func (o *IntegrationConfigParam) GetOptional() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Optional
+}
+
+// GetOptionalOk returns a tuple with the Optional field value
+// and a boolean to check if the value has been set.
+func (o *IntegrationConfigParam) GetOptionalOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Optional, true
+}
+
+// SetOptional sets field value
+func (o *IntegrationConfigParam) SetOptional(v bool) {
+	o.Optional = v
+}
+
 func (o IntegrationConfigParam) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -156,6 +182,7 @@ func (o IntegrationConfigParam) ToMap() (map[string]interface{}, error) {
 	toSerialize["label"] = o.Label
 	toSerialize["values"] = o.Values
 	toSerialize["default"] = o.Default
+	toSerialize["optional"] = o.Optional
 	return toSerialize, nil
 }
 
