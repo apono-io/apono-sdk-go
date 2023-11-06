@@ -19,29 +19,31 @@ var _ MappedNullable = &Integration{}
 
 // Integration struct for Integration
 type Integration struct {
-	Id            string                 `json:"id"`
-	Name          string                 `json:"name"`
-	Type          string                 `json:"type"`
-	Status        IntegrationStatus      `json:"status"`
-	Details       NullableString         `json:"details,omitempty"`
-	ProvisionerId NullableString         `json:"provisioner_id,omitempty"`
-	Connection    map[string]interface{} `json:"connection,omitempty"`
-	LastSyncTime  NullableInstant        `json:"last_sync_time,omitempty"`
-	Metadata      map[string]interface{} `json:"metadata"`
-	SecretConfig  map[string]interface{} `json:"secret_config,omitempty"`
+	Id                     string                 `json:"id"`
+	Name                   string                 `json:"name"`
+	Type                   string                 `json:"type"`
+	Status                 IntegrationStatus      `json:"status"`
+	Details                NullableString         `json:"details,omitempty"`
+	ProvisionerId          NullableString         `json:"provisioner_id,omitempty"`
+	Connection             map[string]interface{} `json:"connection,omitempty"`
+	LastSyncTime           NullableInstant        `json:"last_sync_time,omitempty"`
+	Metadata               map[string]interface{} `json:"metadata"`
+	SecretConfig           map[string]interface{} `json:"secret_config,omitempty"`
+	ConnectedResourceTypes []string               `json:"connected_resource_types"`
 }
 
 // NewIntegration instantiates a new Integration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegration(id string, name string, type_ string, status IntegrationStatus, metadata map[string]interface{}) *Integration {
+func NewIntegration(id string, name string, type_ string, status IntegrationStatus, metadata map[string]interface{}, connectedResourceTypes []string) *Integration {
 	this := Integration{}
 	this.Id = id
 	this.Name = name
 	this.Type = type_
 	this.Status = status
 	this.Metadata = metadata
+	this.ConnectedResourceTypes = connectedResourceTypes
 	return &this
 }
 
@@ -368,6 +370,30 @@ func (o *Integration) SetSecretConfig(v map[string]interface{}) {
 	o.SecretConfig = v
 }
 
+// GetConnectedResourceTypes returns the ConnectedResourceTypes field value
+func (o *Integration) GetConnectedResourceTypes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.ConnectedResourceTypes
+}
+
+// GetConnectedResourceTypesOk returns a tuple with the ConnectedResourceTypes field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetConnectedResourceTypesOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ConnectedResourceTypes, true
+}
+
+// SetConnectedResourceTypes sets field value
+func (o *Integration) SetConnectedResourceTypes(v []string) {
+	o.ConnectedResourceTypes = v
+}
+
 func (o Integration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -398,6 +424,7 @@ func (o Integration) ToMap() (map[string]interface{}, error) {
 	if o.SecretConfig != nil {
 		toSerialize["secret_config"] = o.SecretConfig
 	}
+	toSerialize["connected_resource_types"] = o.ConnectedResourceTypes
 	return toSerialize, nil
 }
 

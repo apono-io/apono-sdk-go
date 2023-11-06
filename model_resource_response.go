@@ -19,20 +19,22 @@ var _ MappedNullable = &ResourceResponse{}
 
 // ResourceResponse struct for ResourceResponse
 type ResourceResponse struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-	Type string `json:"type"`
+	Id     string                 `json:"id"`
+	Name   string                 `json:"name"`
+	Type   string                 `json:"type"`
+	Status ResourceStatusResponse `json:"status"`
 }
 
 // NewResourceResponse instantiates a new ResourceResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceResponse(id string, name string, type_ string) *ResourceResponse {
+func NewResourceResponse(id string, name string, type_ string, status ResourceStatusResponse) *ResourceResponse {
 	this := ResourceResponse{}
 	this.Id = id
 	this.Name = name
 	this.Type = type_
+	this.Status = status
 	return &this
 }
 
@@ -116,6 +118,30 @@ func (o *ResourceResponse) SetType(v string) {
 	o.Type = v
 }
 
+// GetStatus returns the Status field value
+func (o *ResourceResponse) GetStatus() ResourceStatusResponse {
+	if o == nil {
+		var ret ResourceStatusResponse
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *ResourceResponse) GetStatusOk() (*ResourceStatusResponse, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *ResourceResponse) SetStatus(v ResourceStatusResponse) {
+	o.Status = v
+}
+
 func (o ResourceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -129,6 +155,7 @@ func (o ResourceResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	toSerialize["status"] = o.Status
 	return toSerialize, nil
 }
 

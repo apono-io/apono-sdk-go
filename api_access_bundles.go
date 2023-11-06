@@ -19,28 +19,28 @@ import (
 	"strings"
 )
 
-// UsersApiService UsersApi service
-type UsersApiService service
+// AccessBundlesApiService AccessBundlesApi service
+type AccessBundlesApiService service
 
-type ApiGetUserRequest struct {
+type ApiGetAccessBundleRequest struct {
 	ctx        context.Context
-	ApiService *UsersApiService
+	ApiService *AccessBundlesApiService
 	id         string
 }
 
-func (r ApiGetUserRequest) Execute() (*UserModel, *http.Response, error) {
-	return r.ApiService.GetUserExecute(r)
+func (r ApiGetAccessBundleRequest) Execute() (*AccessBundleV1, *http.Response, error) {
+	return r.ApiService.GetAccessBundleExecute(r)
 }
 
 /*
-GetUser get user by Id or Email
+GetAccessBundle get access bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
-	@return ApiGetUserRequest
+	@return ApiGetAccessBundleRequest
 */
-func (a *UsersApiService) GetUser(ctx context.Context, id string) ApiGetUserRequest {
-	return ApiGetUserRequest{
+func (a *AccessBundlesApiService) GetAccessBundle(ctx context.Context, id string) ApiGetAccessBundleRequest {
+	return ApiGetAccessBundleRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -49,21 +49,21 @@ func (a *UsersApiService) GetUser(ctx context.Context, id string) ApiGetUserRequ
 
 // Execute executes the request
 //
-//	@return UserModel
-func (a *UsersApiService) GetUserExecute(r ApiGetUserRequest) (*UserModel, *http.Response, error) {
+//	@return AccessBundleV1
+func (a *AccessBundlesApiService) GetAccessBundleExecute(r ApiGetAccessBundleRequest) (*AccessBundleV1, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserModel
+		localVarReturnValue *AccessBundleV1
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.GetUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessBundlesApiService.GetAccessBundle")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/users/{id}"
+	localVarPath := localBasePath + "/api/v1/access-bundles/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -124,23 +124,23 @@ func (a *UsersApiService) GetUserExecute(r ApiGetUserRequest) (*UserModel, *http
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListUsersRequest struct {
+type ApiListAccessBundlesRequest struct {
 	ctx        context.Context
-	ApiService *UsersApiService
+	ApiService *AccessBundlesApiService
 }
 
-func (r ApiListUsersRequest) Execute() (*PaginatedResponseUserModel, *http.Response, error) {
-	return r.ApiService.ListUsersExecute(r)
+func (r ApiListAccessBundlesRequest) Execute() (*PaginatedResponseAccessBundleV1Model, *http.Response, error) {
+	return r.ApiService.ListAccessBundlesExecute(r)
 }
 
 /*
-ListUsers list users
+ListAccessBundles list access bundles
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersRequest
+	@return ApiListAccessBundlesRequest
 */
-func (a *UsersApiService) ListUsers(ctx context.Context) ApiListUsersRequest {
-	return ApiListUsersRequest{
+func (a *AccessBundlesApiService) ListAccessBundles(ctx context.Context) ApiListAccessBundlesRequest {
+	return ApiListAccessBundlesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -148,21 +148,21 @@ func (a *UsersApiService) ListUsers(ctx context.Context) ApiListUsersRequest {
 
 // Execute executes the request
 //
-//	@return PaginatedResponseUserModel
-func (a *UsersApiService) ListUsersExecute(r ApiListUsersRequest) (*PaginatedResponseUserModel, *http.Response, error) {
+//	@return PaginatedResponseAccessBundleV1Model
+func (a *AccessBundlesApiService) ListAccessBundlesExecute(r ApiListAccessBundlesRequest) (*PaginatedResponseAccessBundleV1Model, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PaginatedResponseUserModel
+		localVarReturnValue *PaginatedResponseAccessBundleV1Model
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ListUsers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessBundlesApiService.ListAccessBundles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/users"
+	localVarPath := localBasePath + "/api/v1/access-bundles"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
