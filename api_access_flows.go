@@ -131,6 +131,115 @@ func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiCreateAccessFlowV1Request struct {
+	ctx                context.Context
+	ApiService         *AccessFlowsApiService
+	upsertAccessFlowV1 *UpsertAccessFlowV1
+}
+
+func (r ApiCreateAccessFlowV1Request) UpsertAccessFlowV1(upsertAccessFlowV1 UpsertAccessFlowV1) ApiCreateAccessFlowV1Request {
+	r.upsertAccessFlowV1 = &upsertAccessFlowV1
+	return r
+}
+
+func (r ApiCreateAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, error) {
+	return r.ApiService.CreateAccessFlowV1Execute(r)
+}
+
+/*
+CreateAccessFlowV1 create access flow
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAccessFlowV1Request
+*/
+func (a *AccessFlowsApiService) CreateAccessFlowV1(ctx context.Context) ApiCreateAccessFlowV1Request {
+	return ApiCreateAccessFlowV1Request{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccessFlowV1
+func (a *AccessFlowsApiService) CreateAccessFlowV1Execute(r ApiCreateAccessFlowV1Request) (*AccessFlowV1, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccessFlowV1
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.CreateAccessFlowV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/access-flows"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.upsertAccessFlowV1 == nil {
+		return localVarReturnValue, nil, reportError("upsertAccessFlowV1 is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.upsertAccessFlowV1
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiDeleteAccessFlowRequest struct {
 	ctx        context.Context
 	ApiService *AccessFlowsApiService
@@ -233,6 +342,108 @@ func (a *AccessFlowsApiService) DeleteAccessFlowExecute(r ApiDeleteAccessFlowReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiDeleteAccessFlowV1Request struct {
+	ctx        context.Context
+	ApiService *AccessFlowsApiService
+	id         string
+}
+
+func (r ApiDeleteAccessFlowV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.DeleteAccessFlowV1Execute(r)
+}
+
+/*
+DeleteAccessFlowV1 delete access flow
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiDeleteAccessFlowV1Request
+*/
+func (a *AccessFlowsApiService) DeleteAccessFlowV1(ctx context.Context, id string) ApiDeleteAccessFlowV1Request {
+	return ApiDeleteAccessFlowV1Request{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MessageResponse
+func (a *AccessFlowsApiService) DeleteAccessFlowV1Execute(r ApiDeleteAccessFlowV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.DeleteAccessFlowV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/access-flows/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetAccessFlowRequest struct {
 	ctx        context.Context
 	ApiService *AccessFlowsApiService
@@ -275,6 +486,108 @@ func (a *AccessFlowsApiService) GetAccessFlowExecute(r ApiGetAccessFlowRequest) 
 	}
 
 	localVarPath := localBasePath + "/api/v3/access-flows/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAccessFlowV1Request struct {
+	ctx        context.Context
+	ApiService *AccessFlowsApiService
+	id         string
+}
+
+func (r ApiGetAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, error) {
+	return r.ApiService.GetAccessFlowV1Execute(r)
+}
+
+/*
+GetAccessFlowV1 get access flow
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiGetAccessFlowV1Request
+*/
+func (a *AccessFlowsApiService) GetAccessFlowV1(ctx context.Context, id string) ApiGetAccessFlowV1Request {
+	return ApiGetAccessFlowV1Request{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccessFlowV1
+func (a *AccessFlowsApiService) GetAccessFlowV1Execute(r ApiGetAccessFlowV1Request) (*AccessFlowV1, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccessFlowV1
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.GetAccessFlowV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/access-flows/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -451,6 +764,104 @@ func (a *AccessFlowsApiService) ListAccessFlowsExecute(r ApiListAccessFlowsReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListAccessFlowsV1Request struct {
+	ctx        context.Context
+	ApiService *AccessFlowsApiService
+}
+
+func (r ApiListAccessFlowsV1Request) Execute() (*PaginatedResponseAccessFlowV1Model, *http.Response, error) {
+	return r.ApiService.ListAccessFlowsV1Execute(r)
+}
+
+/*
+ListAccessFlowsV1 list access flows
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAccessFlowsV1Request
+*/
+func (a *AccessFlowsApiService) ListAccessFlowsV1(ctx context.Context) ApiListAccessFlowsV1Request {
+	return ApiListAccessFlowsV1Request{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PaginatedResponseAccessFlowV1Model
+func (a *AccessFlowsApiService) ListAccessFlowsV1Execute(r ApiListAccessFlowsV1Request) (*PaginatedResponseAccessFlowV1Model, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaginatedResponseAccessFlowV1Model
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.ListAccessFlowsV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/access-flows"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiUpdateAccessFlowRequest struct {
 	ctx                     context.Context
 	ApiService              *AccessFlowsApiService
@@ -527,6 +938,119 @@ func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowReq
 	}
 	// body params
 	localVarPostBody = r.updateAccessFlowModelV3
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateAccessFlowV1Request struct {
+	ctx                context.Context
+	ApiService         *AccessFlowsApiService
+	id                 string
+	updateAccessFlowV1 *UpdateAccessFlowV1
+}
+
+func (r ApiUpdateAccessFlowV1Request) UpdateAccessFlowV1(updateAccessFlowV1 UpdateAccessFlowV1) ApiUpdateAccessFlowV1Request {
+	r.updateAccessFlowV1 = &updateAccessFlowV1
+	return r
+}
+
+func (r ApiUpdateAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, error) {
+	return r.ApiService.UpdateAccessFlowV1Execute(r)
+}
+
+/*
+UpdateAccessFlowV1 update access flow
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiUpdateAccessFlowV1Request
+*/
+func (a *AccessFlowsApiService) UpdateAccessFlowV1(ctx context.Context, id string) ApiUpdateAccessFlowV1Request {
+	return ApiUpdateAccessFlowV1Request{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccessFlowV1
+func (a *AccessFlowsApiService) UpdateAccessFlowV1Execute(r ApiUpdateAccessFlowV1Request) (*AccessFlowV1, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccessFlowV1
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.UpdateAccessFlowV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/access-flows/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateAccessFlowV1 == nil {
+		return localVarReturnValue, nil, reportError("updateAccessFlowV1 is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateAccessFlowV1
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

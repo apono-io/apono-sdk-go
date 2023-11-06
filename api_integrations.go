@@ -336,9 +336,15 @@ func (a *IntegrationsApiService) GetIntegrationConfigExecute(r ApiGetIntegration
 }
 
 type ApiGetIntegrationPermissionsRequest struct {
-	ctx        context.Context
-	ApiService *IntegrationsApiService
-	id         string
+	ctx          context.Context
+	ApiService   *IntegrationsApiService
+	id           string
+	resourceType *string
+}
+
+func (r ApiGetIntegrationPermissionsRequest) ResourceType(resourceType string) ApiGetIntegrationPermissionsRequest {
+	r.resourceType = &resourceType
+	return r
 }
 
 func (r ApiGetIntegrationPermissionsRequest) Execute() (*PaginatedResponsePermissionV3Response, *http.Response, error) {
@@ -383,6 +389,9 @@ func (a *IntegrationsApiService) GetIntegrationPermissionsExecute(r ApiGetIntegr
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.resourceType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource-type", r.resourceType, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -438,9 +447,15 @@ func (a *IntegrationsApiService) GetIntegrationPermissionsExecute(r ApiGetIntegr
 }
 
 type ApiGetIntegrationResourcesRequest struct {
-	ctx        context.Context
-	ApiService *IntegrationsApiService
-	id         string
+	ctx          context.Context
+	ApiService   *IntegrationsApiService
+	id           string
+	resourceType *string
+}
+
+func (r ApiGetIntegrationResourcesRequest) ResourceType(resourceType string) ApiGetIntegrationResourcesRequest {
+	r.resourceType = &resourceType
+	return r
 }
 
 func (r ApiGetIntegrationResourcesRequest) Execute() (*PaginatedResponseResourceV3Response, *http.Response, error) {
@@ -485,6 +500,9 @@ func (a *IntegrationsApiService) GetIntegrationResourcesExecute(r ApiGetIntegrat
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.resourceType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource-type", r.resourceType, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
