@@ -22,115 +22,6 @@ import (
 // AccessFlowsApiService AccessFlowsApi service
 type AccessFlowsApiService service
 
-type ApiCreateAccessFlowRequest struct {
-	ctx                       context.Context
-	ApiService                *AccessFlowsApiService
-	createAccessFlowRequestV3 *CreateAccessFlowRequestV3
-}
-
-func (r ApiCreateAccessFlowRequest) CreateAccessFlowRequestV3(createAccessFlowRequestV3 CreateAccessFlowRequestV3) ApiCreateAccessFlowRequest {
-	r.createAccessFlowRequestV3 = &createAccessFlowRequestV3
-	return r
-}
-
-func (r ApiCreateAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
-	return r.ApiService.CreateAccessFlowExecute(r)
-}
-
-/*
-CreateAccessFlow create access flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAccessFlowRequest
-*/
-func (a *AccessFlowsApiService) CreateAccessFlow(ctx context.Context) ApiCreateAccessFlowRequest {
-	return ApiCreateAccessFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AccessFlowModelV3
-func (a *AccessFlowsApiService) CreateAccessFlowExecute(r ApiCreateAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.CreateAccessFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v3/access-flows"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.createAccessFlowRequestV3 == nil {
-		return localVarReturnValue, nil, reportError("createAccessFlowRequestV3 is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.createAccessFlowRequestV3
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiCreateAccessFlowV1Request struct {
 	ctx                context.Context
 	ApiService         *AccessFlowsApiService
@@ -147,7 +38,7 @@ func (r ApiCreateAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, 
 }
 
 /*
-CreateAccessFlowV1 create access flow
+CreateAccessFlowV1 Create Access Flow
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateAccessFlowV1Request
@@ -240,108 +131,6 @@ func (a *AccessFlowsApiService) CreateAccessFlowV1Execute(r ApiCreateAccessFlowV
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteAccessFlowRequest struct {
-	ctx        context.Context
-	ApiService *AccessFlowsApiService
-	id         string
-}
-
-func (r ApiDeleteAccessFlowRequest) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.DeleteAccessFlowExecute(r)
-}
-
-/*
-DeleteAccessFlow delete access flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return ApiDeleteAccessFlowRequest
-*/
-func (a *AccessFlowsApiService) DeleteAccessFlow(ctx context.Context, id string) ApiDeleteAccessFlowRequest {
-	return ApiDeleteAccessFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return MessageResponse
-func (a *AccessFlowsApiService) DeleteAccessFlowExecute(r ApiDeleteAccessFlowRequest) (*MessageResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MessageResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.DeleteAccessFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v3/access-flows/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiDeleteAccessFlowV1Request struct {
 	ctx        context.Context
 	ApiService *AccessFlowsApiService
@@ -353,7 +142,7 @@ func (r ApiDeleteAccessFlowV1Request) Execute() (*MessageResponse, *http.Respons
 }
 
 /*
-DeleteAccessFlowV1 delete access flow
+DeleteAccessFlowV1 Delete Access Flow
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -444,108 +233,6 @@ func (a *AccessFlowsApiService) DeleteAccessFlowV1Execute(r ApiDeleteAccessFlowV
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetAccessFlowRequest struct {
-	ctx        context.Context
-	ApiService *AccessFlowsApiService
-	id         string
-}
-
-func (r ApiGetAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
-	return r.ApiService.GetAccessFlowExecute(r)
-}
-
-/*
-GetAccessFlow get access flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return ApiGetAccessFlowRequest
-*/
-func (a *AccessFlowsApiService) GetAccessFlow(ctx context.Context, id string) ApiGetAccessFlowRequest {
-	return ApiGetAccessFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AccessFlowModelV3
-func (a *AccessFlowsApiService) GetAccessFlowExecute(r ApiGetAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.GetAccessFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v3/access-flows/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetAccessFlowV1Request struct {
 	ctx        context.Context
 	ApiService *AccessFlowsApiService
@@ -557,7 +244,7 @@ func (r ApiGetAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, err
 }
 
 /*
-GetAccessFlowV1 get access flow
+GetAccessFlowV1 Get Access Flow
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -648,122 +335,6 @@ func (a *AccessFlowsApiService) GetAccessFlowV1Execute(r ApiGetAccessFlowV1Reque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListAccessFlowsRequest struct {
-	ctx        context.Context
-	ApiService *AccessFlowsApiService
-	filters    *string
-	onlyActive *bool
-}
-
-func (r ApiListAccessFlowsRequest) Filters(filters string) ApiListAccessFlowsRequest {
-	r.filters = &filters
-	return r
-}
-
-func (r ApiListAccessFlowsRequest) OnlyActive(onlyActive bool) ApiListAccessFlowsRequest {
-	r.onlyActive = &onlyActive
-	return r
-}
-
-func (r ApiListAccessFlowsRequest) Execute() (*PaginatedAccessFlowV3SearchResponse, *http.Response, error) {
-	return r.ApiService.ListAccessFlowsExecute(r)
-}
-
-/*
-ListAccessFlows list access flows
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAccessFlowsRequest
-*/
-func (a *AccessFlowsApiService) ListAccessFlows(ctx context.Context) ApiListAccessFlowsRequest {
-	return ApiListAccessFlowsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PaginatedAccessFlowV3SearchResponse
-func (a *AccessFlowsApiService) ListAccessFlowsExecute(r ApiListAccessFlowsRequest) (*PaginatedAccessFlowV3SearchResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PaginatedAccessFlowV3SearchResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.ListAccessFlows")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v3/access-flows"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "")
-	}
-	if r.onlyActive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "only_active", r.onlyActive, "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListAccessFlowsV1Request struct {
 	ctx        context.Context
 	ApiService *AccessFlowsApiService
@@ -774,7 +345,7 @@ func (r ApiListAccessFlowsV1Request) Execute() (*PaginatedResponseAccessFlowV1Mo
 }
 
 /*
-ListAccessFlowsV1 list access flows
+ListAccessFlowsV1 List Access Flows
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListAccessFlowsV1Request
@@ -862,119 +433,6 @@ func (a *AccessFlowsApiService) ListAccessFlowsV1Execute(r ApiListAccessFlowsV1R
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateAccessFlowRequest struct {
-	ctx                     context.Context
-	ApiService              *AccessFlowsApiService
-	id                      string
-	updateAccessFlowModelV3 *UpdateAccessFlowModelV3
-}
-
-func (r ApiUpdateAccessFlowRequest) UpdateAccessFlowModelV3(updateAccessFlowModelV3 UpdateAccessFlowModelV3) ApiUpdateAccessFlowRequest {
-	r.updateAccessFlowModelV3 = &updateAccessFlowModelV3
-	return r
-}
-
-func (r ApiUpdateAccessFlowRequest) Execute() (*AccessFlowModelV3, *http.Response, error) {
-	return r.ApiService.UpdateAccessFlowExecute(r)
-}
-
-/*
-UpdateAccessFlow update access flow
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return ApiUpdateAccessFlowRequest
-*/
-func (a *AccessFlowsApiService) UpdateAccessFlow(ctx context.Context, id string) ApiUpdateAccessFlowRequest {
-	return ApiUpdateAccessFlowRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AccessFlowModelV3
-func (a *AccessFlowsApiService) UpdateAccessFlowExecute(r ApiUpdateAccessFlowRequest) (*AccessFlowModelV3, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AccessFlowModelV3
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessFlowsApiService.UpdateAccessFlow")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v3/access-flows/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.updateAccessFlowModelV3 == nil {
-		return localVarReturnValue, nil, reportError("updateAccessFlowModelV3 is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.updateAccessFlowModelV3
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiUpdateAccessFlowV1Request struct {
 	ctx                context.Context
 	ApiService         *AccessFlowsApiService
@@ -992,7 +450,7 @@ func (r ApiUpdateAccessFlowV1Request) Execute() (*AccessFlowV1, *http.Response, 
 }
 
 /*
-UpdateAccessFlowV1 update access flow
+UpdateAccessFlowV1 Update Access Flow
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
