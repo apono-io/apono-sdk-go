@@ -22,8 +22,8 @@ var _ MappedNullable = &AccessRequestClientModel{}
 type AccessRequestClientModel struct {
 	Id             string                                    `json:"id"`
 	Requestor      UserClientModel                           `json:"requestor"`
-	CreationTime   Instant                                   `json:"creation_time"`
-	RevocationTime NullableInstant                           `json:"revocation_time,omitempty"`
+	CreationTime   float64                                   `json:"creation_time"`
+	RevocationTime NullableFloat64                           `json:"revocation_time,omitempty"`
 	Status         RequestStatusClientModel                  `json:"status"`
 	Justification  NullableString                            `json:"justification,omitempty"`
 	AccessGroups   []AccessGroupClientModel                  `json:"access_groups"`
@@ -37,7 +37,7 @@ type _AccessRequestClientModel AccessRequestClientModel
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessRequestClientModel(id string, requestor UserClientModel, creationTime Instant, status RequestStatusClientModel, accessGroups []AccessGroupClientModel) *AccessRequestClientModel {
+func NewAccessRequestClientModel(id string, requestor UserClientModel, creationTime float64, status RequestStatusClientModel, accessGroups []AccessGroupClientModel) *AccessRequestClientModel {
 	this := AccessRequestClientModel{}
 	this.Id = id
 	this.Requestor = requestor
@@ -104,9 +104,9 @@ func (o *AccessRequestClientModel) SetRequestor(v UserClientModel) {
 }
 
 // GetCreationTime returns the CreationTime field value
-func (o *AccessRequestClientModel) GetCreationTime() Instant {
+func (o *AccessRequestClientModel) GetCreationTime() float64 {
 	if o == nil {
-		var ret Instant
+		var ret float64
 		return ret
 	}
 
@@ -115,7 +115,7 @@ func (o *AccessRequestClientModel) GetCreationTime() Instant {
 
 // GetCreationTimeOk returns a tuple with the CreationTime field value
 // and a boolean to check if the value has been set.
-func (o *AccessRequestClientModel) GetCreationTimeOk() (*Instant, bool) {
+func (o *AccessRequestClientModel) GetCreationTimeOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,14 +123,14 @@ func (o *AccessRequestClientModel) GetCreationTimeOk() (*Instant, bool) {
 }
 
 // SetCreationTime sets field value
-func (o *AccessRequestClientModel) SetCreationTime(v Instant) {
+func (o *AccessRequestClientModel) SetCreationTime(v float64) {
 	o.CreationTime = v
 }
 
 // GetRevocationTime returns the RevocationTime field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AccessRequestClientModel) GetRevocationTime() Instant {
+func (o *AccessRequestClientModel) GetRevocationTime() float64 {
 	if o == nil || IsNil(o.RevocationTime.Get()) {
-		var ret Instant
+		var ret float64
 		return ret
 	}
 	return *o.RevocationTime.Get()
@@ -139,7 +139,7 @@ func (o *AccessRequestClientModel) GetRevocationTime() Instant {
 // GetRevocationTimeOk returns a tuple with the RevocationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AccessRequestClientModel) GetRevocationTimeOk() (*Instant, bool) {
+func (o *AccessRequestClientModel) GetRevocationTimeOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -155,8 +155,8 @@ func (o *AccessRequestClientModel) HasRevocationTime() bool {
 	return false
 }
 
-// SetRevocationTime gets a reference to the given NullableInstant and assigns it to the RevocationTime field.
-func (o *AccessRequestClientModel) SetRevocationTime(v Instant) {
+// SetRevocationTime gets a reference to the given NullableFloat64 and assigns it to the RevocationTime field.
+func (o *AccessRequestClientModel) SetRevocationTime(v float64) {
 	o.RevocationTime.Set(&v)
 }
 

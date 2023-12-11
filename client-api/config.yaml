@@ -2,5 +2,3 @@ enablePostProcessFile: true
 additionalProperties:
   enumClassPrefix: true
   packageName: apono
-schemaMappings:
-  Instant: Instant

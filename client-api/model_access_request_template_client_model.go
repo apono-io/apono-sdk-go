@@ -27,7 +27,7 @@ type AccessRequestTemplateClientModel struct {
 	ResourceTypes []ResourceTypeClientModel            `json:"resource_types"`
 	Resources     []ResourceClientModel                `json:"resources"`
 	Permissions   []PermissionClientModel              `json:"permissions"`
-	CreateDate    Instant                              `json:"create_date"`
+	CreateDate    float64                              `json:"create_date"`
 }
 
 type _AccessRequestTemplateClientModel AccessRequestTemplateClientModel
@@ -36,7 +36,7 @@ type _AccessRequestTemplateClientModel AccessRequestTemplateClientModel
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessRequestTemplateClientModel(id string, name string, type_ AccessRequestTemplateTypeClientModel, integrations []IntegrationClientModel, resourceTypes []ResourceTypeClientModel, resources []ResourceClientModel, permissions []PermissionClientModel, createDate Instant) *AccessRequestTemplateClientModel {
+func NewAccessRequestTemplateClientModel(id string, name string, type_ AccessRequestTemplateTypeClientModel, integrations []IntegrationClientModel, resourceTypes []ResourceTypeClientModel, resources []ResourceClientModel, permissions []PermissionClientModel, createDate float64) *AccessRequestTemplateClientModel {
 	this := AccessRequestTemplateClientModel{}
 	this.Id = id
 	this.Name = name
@@ -226,9 +226,9 @@ func (o *AccessRequestTemplateClientModel) SetPermissions(v []PermissionClientMo
 }
 
 // GetCreateDate returns the CreateDate field value
-func (o *AccessRequestTemplateClientModel) GetCreateDate() Instant {
+func (o *AccessRequestTemplateClientModel) GetCreateDate() float64 {
 	if o == nil {
-		var ret Instant
+		var ret float64
 		return ret
 	}
 
@@ -237,7 +237,7 @@ func (o *AccessRequestTemplateClientModel) GetCreateDate() Instant {
 
 // GetCreateDateOk returns a tuple with the CreateDate field value
 // and a boolean to check if the value has been set.
-func (o *AccessRequestTemplateClientModel) GetCreateDateOk() (*Instant, bool) {
+func (o *AccessRequestTemplateClientModel) GetCreateDateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -245,7 +245,7 @@ func (o *AccessRequestTemplateClientModel) GetCreateDateOk() (*Instant, bool) {
 }
 
 // SetCreateDate sets field value
-func (o *AccessRequestTemplateClientModel) SetCreateDate(v Instant) {
+func (o *AccessRequestTemplateClientModel) SetCreateDate(v float64) {
 	o.CreateDate = v
 }
 
