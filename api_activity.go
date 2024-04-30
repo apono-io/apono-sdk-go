@@ -32,7 +32,8 @@ type ApiListActivityRequest struct {
 	filterRequestorId   *[]string
 	filterResource      *[]string
 	filterResourceType  *[]string
-	filterStatus        *[]AccessStatus
+	filterStatus        *[]string
+	filterTriggerType   *[]string
 	startDate           *int64
 }
 
@@ -71,8 +72,13 @@ func (r ApiListActivityRequest) FilterResourceType(filterResourceType []string) 
 	return r
 }
 
-func (r ApiListActivityRequest) FilterStatus(filterStatus []AccessStatus) ApiListActivityRequest {
+func (r ApiListActivityRequest) FilterStatus(filterStatus []string) ApiListActivityRequest {
 	r.filterStatus = &filterStatus
+	return r
+}
+
+func (r ApiListActivityRequest) FilterTriggerType(filterTriggerType []string) ApiListActivityRequest {
+	r.filterTriggerType = &filterTriggerType
 	return r
 }
 
@@ -198,6 +204,17 @@ func (a *ActivityApiService) ListActivityExecute(r ApiListActivityRequest) (*Pag
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "filter[status]", t, "multi")
+		}
+	}
+	if r.filterTriggerType != nil {
+		t := *r.filterTriggerType
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filter[trigger_type]", s.Index(i), "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filter[trigger_type]", t, "multi")
 		}
 	}
 	if r.startDate != nil {

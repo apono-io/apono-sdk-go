@@ -738,6 +738,37 @@
         }
       }
     },
+    "/api/v3/access-requests-bulk/revoke": {
+      "post": {
+        "tags": [
+          "Access Requests"
+        ],
+        "summary": "Revoke multiple access requests",
+        "operationId": "revokeAccessRequests",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessRequestsBulkRevokeRequestV3"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v3/access-requests/{id}": {
       "get": {
         "tags": [
@@ -920,7 +951,18 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/AccessStatus"
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter[trigger_type]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
               },
               "nullable": true
             }
@@ -1444,17 +1486,19 @@
           }
         }
       },
-      "AccessStatus": {
-        "enum": [
-          "PENDING",
-          "APPROVED",
-          "REJECTED",
-          "GRANTED",
-          "REVOKING",
-          "EXPIRED",
-          "FAILED"
+      "AccessRequestsBulkRevokeRequestV3": {
+        "required": [
+          "request_ids"
         ],
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "request_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       },
       "AccessStatusModel": {
         "enum": [
@@ -1561,6 +1605,10 @@
             "nullable": true
           },
           "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "trigger_type": {
             "type": "string",
             "nullable": true
           },
@@ -1684,6 +1732,13 @@
                 "$ref": "#/components/schemas/SecretConfig"
               }
             ],
+            "nullable": true
+          },
+          "connected_resource_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         }
@@ -2176,14 +2231,21 @@
         "enum": [
           "request_id",
           "request_date",
+          "request_grant_date",
+          "request_revoke_date",
           "requestor_name",
           "requestor_email",
           "integration",
           "resources",
           "resource_type",
           "permissions",
+          "approver_names",
+          "approver_emails",
+          "approver_types",
           "justification",
           "status",
+          "resources_status",
+          "trigger_type",
           "access_flow",
           "bundle_name"
         ],
@@ -2470,6 +2532,13 @@
                 "$ref": "#/components/schemas/SecretConfig"
               }
             ],
+            "nullable": true
+          },
+          "connected_resource_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         }

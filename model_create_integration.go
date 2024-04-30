@@ -19,11 +19,12 @@ var _ MappedNullable = &CreateIntegration{}
 
 // CreateIntegration struct for CreateIntegration
 type CreateIntegration struct {
-	Name          string                 `json:"name"`
-	Type          string                 `json:"type"`
-	ProvisionerId NullableString         `json:"provisioner_id,omitempty"`
-	Metadata      map[string]interface{} `json:"metadata"`
-	SecretConfig  map[string]interface{} `json:"secret_config,omitempty"`
+	Name                   string                 `json:"name"`
+	Type                   string                 `json:"type"`
+	ProvisionerId          NullableString         `json:"provisioner_id,omitempty"`
+	Metadata               map[string]interface{} `json:"metadata"`
+	SecretConfig           map[string]interface{} `json:"secret_config,omitempty"`
+	ConnectedResourceTypes []string               `json:"connected_resource_types,omitempty"`
 }
 
 // NewCreateIntegration instantiates a new CreateIntegration object
@@ -194,6 +195,39 @@ func (o *CreateIntegration) SetSecretConfig(v map[string]interface{}) {
 	o.SecretConfig = v
 }
 
+// GetConnectedResourceTypes returns the ConnectedResourceTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateIntegration) GetConnectedResourceTypes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.ConnectedResourceTypes
+}
+
+// GetConnectedResourceTypesOk returns a tuple with the ConnectedResourceTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateIntegration) GetConnectedResourceTypesOk() ([]string, bool) {
+	if o == nil || IsNil(o.ConnectedResourceTypes) {
+		return nil, false
+	}
+	return o.ConnectedResourceTypes, true
+}
+
+// HasConnectedResourceTypes returns a boolean if a field has been set.
+func (o *CreateIntegration) HasConnectedResourceTypes() bool {
+	if o != nil && IsNil(o.ConnectedResourceTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectedResourceTypes gets a reference to the given []string and assigns it to the ConnectedResourceTypes field.
+func (o *CreateIntegration) SetConnectedResourceTypes(v []string) {
+	o.ConnectedResourceTypes = v
+}
+
 func (o CreateIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -212,6 +246,9 @@ func (o CreateIntegration) ToMap() (map[string]interface{}, error) {
 	toSerialize["metadata"] = o.Metadata
 	if o.SecretConfig != nil {
 		toSerialize["secret_config"] = o.SecretConfig
+	}
+	if o.ConnectedResourceTypes != nil {
+		toSerialize["connected_resource_types"] = o.ConnectedResourceTypes
 	}
 	return toSerialize, nil
 }

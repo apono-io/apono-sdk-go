@@ -15,7 +15,7 @@ model_access_flow_trigger_v1_timeframe.go
 model_access_flow_v1.go
 model_access_flow_v1_settings.go
 model_access_request.go
-model_access_status.go
+model_access_requests_bulk_revoke_request_v3.go
 model_access_status_model.go
 model_access_target_bundle_v1.go
 model_access_target_integration_v1.go
