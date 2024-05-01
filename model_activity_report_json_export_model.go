@@ -29,6 +29,7 @@ type ActivityReportJsonExportModel struct {
 	Permissions    []string       `json:"permissions,omitempty"`
 	Justification  NullableString `json:"justification,omitempty"`
 	Status         NullableString `json:"status,omitempty"`
+	TriggerType    NullableString `json:"trigger_type,omitempty"`
 	AccessFlow     NullableString `json:"access_flow,omitempty"`
 }
 
@@ -459,6 +460,49 @@ func (o *ActivityReportJsonExportModel) UnsetStatus() {
 	o.Status.Unset()
 }
 
+// GetTriggerType returns the TriggerType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ActivityReportJsonExportModel) GetTriggerType() string {
+	if o == nil || IsNil(o.TriggerType.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TriggerType.Get()
+}
+
+// GetTriggerTypeOk returns a tuple with the TriggerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ActivityReportJsonExportModel) GetTriggerTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TriggerType.Get(), o.TriggerType.IsSet()
+}
+
+// HasTriggerType returns a boolean if a field has been set.
+func (o *ActivityReportJsonExportModel) HasTriggerType() bool {
+	if o != nil && o.TriggerType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerType gets a reference to the given NullableString and assigns it to the TriggerType field.
+func (o *ActivityReportJsonExportModel) SetTriggerType(v string) {
+	o.TriggerType.Set(&v)
+}
+
+// SetTriggerTypeNil sets the value for TriggerType to be an explicit nil
+func (o *ActivityReportJsonExportModel) SetTriggerTypeNil() {
+	o.TriggerType.Set(nil)
+}
+
+// UnsetTriggerType ensures that no value is present for TriggerType, not even an explicit nil
+func (o *ActivityReportJsonExportModel) UnsetTriggerType() {
+	o.TriggerType.Unset()
+}
+
 // GetAccessFlow returns the AccessFlow field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ActivityReportJsonExportModel) GetAccessFlow() string {
 	if o == nil || IsNil(o.AccessFlow.Get()) {
@@ -541,6 +585,9 @@ func (o ActivityReportJsonExportModel) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Status.IsSet() {
 		toSerialize["status"] = o.Status.Get()
+	}
+	if o.TriggerType.IsSet() {
+		toSerialize["trigger_type"] = o.TriggerType.Get()
 	}
 	if o.AccessFlow.IsSet() {
 		toSerialize["access_flow"] = o.AccessFlow.Get()

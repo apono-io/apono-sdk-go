@@ -20,32 +20,46 @@ type ReportField string
 
 // List of ReportField
 const (
-	REPORTFIELD_REQUEST_ID      ReportField = "request_id"
-	REPORTFIELD_REQUEST_DATE    ReportField = "request_date"
-	REPORTFIELD_REQUESTOR_NAME  ReportField = "requestor_name"
-	REPORTFIELD_REQUESTOR_EMAIL ReportField = "requestor_email"
-	REPORTFIELD_INTEGRATION     ReportField = "integration"
-	REPORTFIELD_RESOURCES       ReportField = "resources"
-	REPORTFIELD_RESOURCE_TYPE   ReportField = "resource_type"
-	REPORTFIELD_PERMISSIONS     ReportField = "permissions"
-	REPORTFIELD_JUSTIFICATION   ReportField = "justification"
-	REPORTFIELD_STATUS          ReportField = "status"
-	REPORTFIELD_ACCESS_FLOW     ReportField = "access_flow"
-	REPORTFIELD_BUNDLE_NAME     ReportField = "bundle_name"
+	REPORTFIELD_REQUEST_ID          ReportField = "request_id"
+	REPORTFIELD_REQUEST_DATE        ReportField = "request_date"
+	REPORTFIELD_REQUEST_GRANT_DATE  ReportField = "request_grant_date"
+	REPORTFIELD_REQUEST_REVOKE_DATE ReportField = "request_revoke_date"
+	REPORTFIELD_REQUESTOR_NAME      ReportField = "requestor_name"
+	REPORTFIELD_REQUESTOR_EMAIL     ReportField = "requestor_email"
+	REPORTFIELD_INTEGRATION         ReportField = "integration"
+	REPORTFIELD_RESOURCES           ReportField = "resources"
+	REPORTFIELD_RESOURCE_TYPE       ReportField = "resource_type"
+	REPORTFIELD_PERMISSIONS         ReportField = "permissions"
+	REPORTFIELD_APPROVER_NAMES      ReportField = "approver_names"
+	REPORTFIELD_APPROVER_EMAILS     ReportField = "approver_emails"
+	REPORTFIELD_APPROVER_TYPES      ReportField = "approver_types"
+	REPORTFIELD_JUSTIFICATION       ReportField = "justification"
+	REPORTFIELD_STATUS              ReportField = "status"
+	REPORTFIELD_RESOURCES_STATUS    ReportField = "resources_status"
+	REPORTFIELD_TRIGGER_TYPE        ReportField = "trigger_type"
+	REPORTFIELD_ACCESS_FLOW         ReportField = "access_flow"
+	REPORTFIELD_BUNDLE_NAME         ReportField = "bundle_name"
 )
 
 // All allowed values of ReportField enum
 var AllowedReportFieldEnumValues = []ReportField{
 	"request_id",
 	"request_date",
+	"request_grant_date",
+	"request_revoke_date",
 	"requestor_name",
 	"requestor_email",
 	"integration",
 	"resources",
 	"resource_type",
 	"permissions",
+	"approver_names",
+	"approver_emails",
+	"approver_types",
 	"justification",
 	"status",
+	"resources_status",
+	"trigger_type",
 	"access_flow",
 	"bundle_name",
 }
