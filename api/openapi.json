@@ -1701,6 +1701,11 @@
           },
           "justification": {
             "type": "string"
+          },
+          "duration_in_sec": {
+            "format": "int64",
+            "type": "integer",
+            "nullable": true
           }
         }
       },
@@ -1739,6 +1744,10 @@
             "items": {
               "type": "string"
             },
+            "nullable": true
+          },
+          "custom_instruction_message": {
+            "type": "string",
             "nullable": true
           }
         }
@@ -1860,6 +1869,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "custom_instruction_message": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -2539,6 +2552,10 @@
             "items": {
               "type": "string"
             },
+            "nullable": true
+          },
+          "custom_instruction_message": {
+            "type": "string",
             "nullable": true
           }
         }

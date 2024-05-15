@@ -19,17 +19,18 @@ var _ MappedNullable = &Integration{}
 
 // Integration struct for Integration
 type Integration struct {
-	Id                     string                 `json:"id"`
-	Name                   string                 `json:"name"`
-	Type                   string                 `json:"type"`
-	Status                 IntegrationStatus      `json:"status"`
-	Details                NullableString         `json:"details,omitempty"`
-	ProvisionerId          NullableString         `json:"provisioner_id,omitempty"`
-	Connection             map[string]interface{} `json:"connection,omitempty"`
-	LastSyncTime           NullableInstant        `json:"last_sync_time,omitempty"`
-	Metadata               map[string]interface{} `json:"metadata"`
-	SecretConfig           map[string]interface{} `json:"secret_config,omitempty"`
-	ConnectedResourceTypes []string               `json:"connected_resource_types"`
+	Id                       string                 `json:"id"`
+	Name                     string                 `json:"name"`
+	Type                     string                 `json:"type"`
+	Status                   IntegrationStatus      `json:"status"`
+	Details                  NullableString         `json:"details,omitempty"`
+	ProvisionerId            NullableString         `json:"provisioner_id,omitempty"`
+	Connection               map[string]interface{} `json:"connection,omitempty"`
+	LastSyncTime             NullableInstant        `json:"last_sync_time,omitempty"`
+	Metadata                 map[string]interface{} `json:"metadata"`
+	SecretConfig             map[string]interface{} `json:"secret_config,omitempty"`
+	ConnectedResourceTypes   []string               `json:"connected_resource_types"`
+	CustomInstructionMessage NullableString         `json:"custom_instruction_message,omitempty"`
 }
 
 // NewIntegration instantiates a new Integration object
@@ -394,6 +395,49 @@ func (o *Integration) SetConnectedResourceTypes(v []string) {
 	o.ConnectedResourceTypes = v
 }
 
+// GetCustomInstructionMessage returns the CustomInstructionMessage field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Integration) GetCustomInstructionMessage() string {
+	if o == nil || IsNil(o.CustomInstructionMessage.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CustomInstructionMessage.Get()
+}
+
+// GetCustomInstructionMessageOk returns a tuple with the CustomInstructionMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Integration) GetCustomInstructionMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CustomInstructionMessage.Get(), o.CustomInstructionMessage.IsSet()
+}
+
+// HasCustomInstructionMessage returns a boolean if a field has been set.
+func (o *Integration) HasCustomInstructionMessage() bool {
+	if o != nil && o.CustomInstructionMessage.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomInstructionMessage gets a reference to the given NullableString and assigns it to the CustomInstructionMessage field.
+func (o *Integration) SetCustomInstructionMessage(v string) {
+	o.CustomInstructionMessage.Set(&v)
+}
+
+// SetCustomInstructionMessageNil sets the value for CustomInstructionMessage to be an explicit nil
+func (o *Integration) SetCustomInstructionMessageNil() {
+	o.CustomInstructionMessage.Set(nil)
+}
+
+// UnsetCustomInstructionMessage ensures that no value is present for CustomInstructionMessage, not even an explicit nil
+func (o *Integration) UnsetCustomInstructionMessage() {
+	o.CustomInstructionMessage.Unset()
+}
+
 func (o Integration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -425,6 +469,9 @@ func (o Integration) ToMap() (map[string]interface{}, error) {
 		toSerialize["secret_config"] = o.SecretConfig
 	}
 	toSerialize["connected_resource_types"] = o.ConnectedResourceTypes
+	if o.CustomInstructionMessage.IsSet() {
+		toSerialize["custom_instruction_message"] = o.CustomInstructionMessage.Get()
+	}
 	return toSerialize, nil
 }
 

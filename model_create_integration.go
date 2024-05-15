@@ -19,12 +19,13 @@ var _ MappedNullable = &CreateIntegration{}
 
 // CreateIntegration struct for CreateIntegration
 type CreateIntegration struct {
-	Name                   string                 `json:"name"`
-	Type                   string                 `json:"type"`
-	ProvisionerId          NullableString         `json:"provisioner_id,omitempty"`
-	Metadata               map[string]interface{} `json:"metadata"`
-	SecretConfig           map[string]interface{} `json:"secret_config,omitempty"`
-	ConnectedResourceTypes []string               `json:"connected_resource_types,omitempty"`
+	Name                     string                 `json:"name"`
+	Type                     string                 `json:"type"`
+	ProvisionerId            NullableString         `json:"provisioner_id,omitempty"`
+	Metadata                 map[string]interface{} `json:"metadata"`
+	SecretConfig             map[string]interface{} `json:"secret_config,omitempty"`
+	ConnectedResourceTypes   []string               `json:"connected_resource_types,omitempty"`
+	CustomInstructionMessage NullableString         `json:"custom_instruction_message,omitempty"`
 }
 
 // NewCreateIntegration instantiates a new CreateIntegration object
@@ -228,6 +229,49 @@ func (o *CreateIntegration) SetConnectedResourceTypes(v []string) {
 	o.ConnectedResourceTypes = v
 }
 
+// GetCustomInstructionMessage returns the CustomInstructionMessage field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateIntegration) GetCustomInstructionMessage() string {
+	if o == nil || IsNil(o.CustomInstructionMessage.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CustomInstructionMessage.Get()
+}
+
+// GetCustomInstructionMessageOk returns a tuple with the CustomInstructionMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateIntegration) GetCustomInstructionMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CustomInstructionMessage.Get(), o.CustomInstructionMessage.IsSet()
+}
+
+// HasCustomInstructionMessage returns a boolean if a field has been set.
+func (o *CreateIntegration) HasCustomInstructionMessage() bool {
+	if o != nil && o.CustomInstructionMessage.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomInstructionMessage gets a reference to the given NullableString and assigns it to the CustomInstructionMessage field.
+func (o *CreateIntegration) SetCustomInstructionMessage(v string) {
+	o.CustomInstructionMessage.Set(&v)
+}
+
+// SetCustomInstructionMessageNil sets the value for CustomInstructionMessage to be an explicit nil
+func (o *CreateIntegration) SetCustomInstructionMessageNil() {
+	o.CustomInstructionMessage.Set(nil)
+}
+
+// UnsetCustomInstructionMessage ensures that no value is present for CustomInstructionMessage, not even an explicit nil
+func (o *CreateIntegration) UnsetCustomInstructionMessage() {
+	o.CustomInstructionMessage.Unset()
+}
+
 func (o CreateIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -249,6 +293,9 @@ func (o CreateIntegration) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ConnectedResourceTypes != nil {
 		toSerialize["connected_resource_types"] = o.ConnectedResourceTypes
+	}
+	if o.CustomInstructionMessage.IsSet() {
+		toSerialize["custom_instruction_message"] = o.CustomInstructionMessage.Get()
 	}
 	return toSerialize, nil
 }
