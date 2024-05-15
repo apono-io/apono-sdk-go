@@ -19,11 +19,12 @@ var _ MappedNullable = &CreateAccessRequest{}
 
 // CreateAccessRequest struct for CreateAccessRequest
 type CreateAccessRequest struct {
-	UserId        string   `json:"user_id"`
-	IntegrationId string   `json:"integration_id"`
-	ResourceIds   []string `json:"resource_ids"`
-	Permissions   []string `json:"permissions"`
-	Justification string   `json:"justification"`
+	UserId        string        `json:"user_id"`
+	IntegrationId string        `json:"integration_id"`
+	ResourceIds   []string      `json:"resource_ids"`
+	Permissions   []string      `json:"permissions"`
+	Justification string        `json:"justification"`
+	DurationInSec NullableInt64 `json:"duration_in_sec,omitempty"`
 }
 
 // NewCreateAccessRequest instantiates a new CreateAccessRequest object
@@ -168,6 +169,49 @@ func (o *CreateAccessRequest) SetJustification(v string) {
 	o.Justification = v
 }
 
+// GetDurationInSec returns the DurationInSec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAccessRequest) GetDurationInSec() int64 {
+	if o == nil || IsNil(o.DurationInSec.Get()) {
+		var ret int64
+		return ret
+	}
+	return *o.DurationInSec.Get()
+}
+
+// GetDurationInSecOk returns a tuple with the DurationInSec field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAccessRequest) GetDurationInSecOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DurationInSec.Get(), o.DurationInSec.IsSet()
+}
+
+// HasDurationInSec returns a boolean if a field has been set.
+func (o *CreateAccessRequest) HasDurationInSec() bool {
+	if o != nil && o.DurationInSec.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDurationInSec gets a reference to the given NullableInt64 and assigns it to the DurationInSec field.
+func (o *CreateAccessRequest) SetDurationInSec(v int64) {
+	o.DurationInSec.Set(&v)
+}
+
+// SetDurationInSecNil sets the value for DurationInSec to be an explicit nil
+func (o *CreateAccessRequest) SetDurationInSecNil() {
+	o.DurationInSec.Set(nil)
+}
+
+// UnsetDurationInSec ensures that no value is present for DurationInSec, not even an explicit nil
+func (o *CreateAccessRequest) UnsetDurationInSec() {
+	o.DurationInSec.Unset()
+}
+
 func (o CreateAccessRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -183,6 +227,9 @@ func (o CreateAccessRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["resource_ids"] = o.ResourceIds
 	toSerialize["permissions"] = o.Permissions
 	toSerialize["justification"] = o.Justification
+	if o.DurationInSec.IsSet() {
+		toSerialize["duration_in_sec"] = o.DurationInSec.Get()
+	}
 	return toSerialize, nil
 }
 
