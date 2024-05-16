@@ -19,12 +19,12 @@ var _ MappedNullable = &UpdateIntegration{}
 
 // UpdateIntegration struct for UpdateIntegration
 type UpdateIntegration struct {
-	Name                     string                 `json:"name"`
-	ProvisionerId            NullableString         `json:"provisioner_id,omitempty"`
-	Metadata                 map[string]interface{} `json:"metadata"`
-	SecretConfig             map[string]interface{} `json:"secret_config,omitempty"`
-	ConnectedResourceTypes   []string               `json:"connected_resource_types,omitempty"`
-	CustomInstructionMessage NullableString         `json:"custom_instruction_message,omitempty"`
+	Name                   string                 `json:"name"`
+	ProvisionerId          NullableString         `json:"provisioner_id,omitempty"`
+	Metadata               map[string]interface{} `json:"metadata"`
+	SecretConfig           map[string]interface{} `json:"secret_config,omitempty"`
+	ConnectedResourceTypes []string               `json:"connected_resource_types,omitempty"`
+	CustomAccessDetails    NullableString         `json:"custom_access_details,omitempty"`
 }
 
 // NewUpdateIntegration instantiates a new UpdateIntegration object
@@ -203,47 +203,47 @@ func (o *UpdateIntegration) SetConnectedResourceTypes(v []string) {
 	o.ConnectedResourceTypes = v
 }
 
-// GetCustomInstructionMessage returns the CustomInstructionMessage field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateIntegration) GetCustomInstructionMessage() string {
-	if o == nil || IsNil(o.CustomInstructionMessage.Get()) {
+// GetCustomAccessDetails returns the CustomAccessDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateIntegration) GetCustomAccessDetails() string {
+	if o == nil || IsNil(o.CustomAccessDetails.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomInstructionMessage.Get()
+	return *o.CustomAccessDetails.Get()
 }
 
-// GetCustomInstructionMessageOk returns a tuple with the CustomInstructionMessage field value if set, nil otherwise
+// GetCustomAccessDetailsOk returns a tuple with the CustomAccessDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateIntegration) GetCustomInstructionMessageOk() (*string, bool) {
+func (o *UpdateIntegration) GetCustomAccessDetailsOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.CustomInstructionMessage.Get(), o.CustomInstructionMessage.IsSet()
+	return o.CustomAccessDetails.Get(), o.CustomAccessDetails.IsSet()
 }
 
-// HasCustomInstructionMessage returns a boolean if a field has been set.
-func (o *UpdateIntegration) HasCustomInstructionMessage() bool {
-	if o != nil && o.CustomInstructionMessage.IsSet() {
+// HasCustomAccessDetails returns a boolean if a field has been set.
+func (o *UpdateIntegration) HasCustomAccessDetails() bool {
+	if o != nil && o.CustomAccessDetails.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomInstructionMessage gets a reference to the given NullableString and assigns it to the CustomInstructionMessage field.
-func (o *UpdateIntegration) SetCustomInstructionMessage(v string) {
-	o.CustomInstructionMessage.Set(&v)
+// SetCustomAccessDetails gets a reference to the given NullableString and assigns it to the CustomAccessDetails field.
+func (o *UpdateIntegration) SetCustomAccessDetails(v string) {
+	o.CustomAccessDetails.Set(&v)
 }
 
-// SetCustomInstructionMessageNil sets the value for CustomInstructionMessage to be an explicit nil
-func (o *UpdateIntegration) SetCustomInstructionMessageNil() {
-	o.CustomInstructionMessage.Set(nil)
+// SetCustomAccessDetailsNil sets the value for CustomAccessDetails to be an explicit nil
+func (o *UpdateIntegration) SetCustomAccessDetailsNil() {
+	o.CustomAccessDetails.Set(nil)
 }
 
-// UnsetCustomInstructionMessage ensures that no value is present for CustomInstructionMessage, not even an explicit nil
-func (o *UpdateIntegration) UnsetCustomInstructionMessage() {
-	o.CustomInstructionMessage.Unset()
+// UnsetCustomAccessDetails ensures that no value is present for CustomAccessDetails, not even an explicit nil
+func (o *UpdateIntegration) UnsetCustomAccessDetails() {
+	o.CustomAccessDetails.Unset()
 }
 
 func (o UpdateIntegration) MarshalJSON() ([]byte, error) {
@@ -267,8 +267,8 @@ func (o UpdateIntegration) ToMap() (map[string]interface{}, error) {
 	if o.ConnectedResourceTypes != nil {
 		toSerialize["connected_resource_types"] = o.ConnectedResourceTypes
 	}
-	if o.CustomInstructionMessage.IsSet() {
-		toSerialize["custom_instruction_message"] = o.CustomInstructionMessage.Get()
+	if o.CustomAccessDetails.IsSet() {
+		toSerialize["custom_access_details"] = o.CustomAccessDetails.Get()
 	}
 	return toSerialize, nil
 }

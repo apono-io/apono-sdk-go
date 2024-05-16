@@ -1746,7 +1746,7 @@
             },
             "nullable": true
           },
-          "custom_instruction_message": {
+          "custom_access_details": {
             "type": "string",
             "nullable": true
           }
@@ -1870,7 +1870,7 @@
               "type": "string"
             }
           },
-          "custom_instruction_message": {
+          "custom_access_details": {
             "type": "string",
             "nullable": true
           }
@@ -2554,7 +2554,7 @@
             },
             "nullable": true
           },
-          "custom_instruction_message": {
+          "custom_access_details": {
             "type": "string",
             "nullable": true
           }
